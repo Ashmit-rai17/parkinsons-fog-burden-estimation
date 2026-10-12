@@ -1,0 +1,3 @@
+*.ipynb -diff
+*.png binary
+*.json text

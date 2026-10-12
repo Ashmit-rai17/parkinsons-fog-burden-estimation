@@ -1,0 +1,13 @@
+# large intermediates — regenerate from the Kaggle notebooks
+*.npy
+*.parquet
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
+.venv/
+
+# Workspace material outside the submission package
+/00_CONTEXT/
+/01_DATASETS/
+/04_COMPARISON/
+/05_DECISION/
