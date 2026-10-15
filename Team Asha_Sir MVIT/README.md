@@ -36,7 +36,8 @@ Two readouts are taken from that patient state (`docs/02_twin_spec.md`, §4):
    personalisation mechanisms tested were null. Operating points and
    limitations are in `RESULTS.md`.
 2. **Concurrent freezing-burden estimation.** How much a patient is freezing
-   now, estimated from movement the model has not seen from that patient. This
+   now, estimated from movement the model has not seen from that patient. The
+   burden estimator is movement-only: arm A, accelerometry alone. This
    is the readout with the stronger validation: on 31 held-out patients,
    Spearman ρ = 0.51 (p = 0.003) and Pearson r = 0.65 (p = 0.0001), while the
    standard NFOGQ questionnaire does not reach significance in the same cohort
@@ -45,11 +46,10 @@ Two readouts are taken from that patient state (`docs/02_twin_spec.md`, §4):
    p = 0.00008). Final values are in `RESULTS.md`.
 
 These are two outputs of the twin's patient-state design, not competing
-results. One limit on that statement: the forecasting result is measured on
-model C, while the burden estimate is recorded only as coming from a
-movement-only arm. The notebook that produced it was lost, so which arm
-produced it, and therefore whether both readouts come from the same trained
-model, cannot be verified from this repository.
+results. They come from different arms of the same ablation: the forecasting
+result is measured on model C, and the burden estimate on the movement-only
+arm A. The reconstruction of the burden block is recorded in
+`docs/06_provenance.md`.
 
 The submitted model is **Model C**: a fusion of the patient's movement history,
 static clinical state, and continuous accelerometry. Model C is submitted even
@@ -57,6 +57,15 @@ though it does not outperform the accelerometry-only arm (A) in the ablation,
 because it is the only arm that uses both required data streams, static
 clinical state and dynamic accelerometry, and the challenge requires
 two-stream fusion.
+
+| Result | Model | Evaluation |
+|---|---|---|
+| Adverse-event prediction (FoG onset, 2 s horizon) | C — accelerometry + personal baseline + clinical state | out-of-fold, subject-level GroupKFold, 6 folds, 3 seeds |
+| Burden estimation | A — accelerometry only, seed-averaged over 3 seeds | out-of-fold, patient-level, n = 31, over the 2.0 s evaluation mask |
+
+The burden estimate is a mean predicted risk and the observed rate is a
+positive-window fraction: different quantities on different scales, so the
+reported association is rank-based.
 
 ![Held-out burden estimation](figures/fig5_burden_estimation.png)
 
@@ -132,11 +141,12 @@ Extended version: `docs/02_twin_spec.md`, §7.
 | `docs/03_data_and_target.md` | Dataset roles, linkage, target, leakage rules |
 | `docs/00_workflow.md` | **Start here** — decisions, pipeline, results, remaining work |
 | `docs/04_evidence_matrix.md` | Every claim with its evidence class and source |
+| `docs/06_provenance.md` | Which payload values are reproduced from the notebooks, and which are open |
 
 Every substantive claim is traceable in `docs/04_evidence_matrix.md`, labelled
 VERIFIED — DATA, VERIFIED — LITERATURE, PREPRINT, INFERRED, ASSUMED, SYNTHETIC
-or UNKNOWN, with its source. One claim (Parkinson's burden in India) is still
-marked TO VERIFY. Nothing is stated more strongly than its evidence supports.
+or UNKNOWN, with its source. Nothing is stated more strongly than its evidence
+supports.
 
 ## Technical stack
 
@@ -169,7 +179,8 @@ Team Asha_Sir MVIT/
 │   ├── 01_problem.md
 │   ├── 02_twin_spec.md
 │   ├── 03_data_and_target.md
-│   └── 04_evidence_matrix.md
+│   ├── 04_evidence_matrix.md
+│   └── 06_provenance.md      what is reproduced from the notebooks, what is open
 ├── dashboard/
 │   ├── README.md
 │   ├── index.html            self-contained dashboard (built)
@@ -192,7 +203,8 @@ Team Asha_Sir MVIT/
     ├── export_signal_snippets.py
     ├── make_results.py
     ├── make_synthetic_patient.py
-    └── merge_signal_fragment.py
+    ├── merge_signal_fragment.py
+    └── reconstruct_burden.py
 ```
 
 ## Reproducing

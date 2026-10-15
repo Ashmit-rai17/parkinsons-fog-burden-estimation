@@ -1,6 +1,6 @@
 # 04 — Evidence Matrix
 
-**Status:** LIVE — update when any claim changes · **Last updated:** 14 October 2026
+**Status:** LIVE — update when any claim changes · **Last updated:** 15 October 2026
 
 > Every substantive claim this project makes is listed here with its evidence
 > class. If a claim is not in this table, it should not appear in the
@@ -51,7 +51,7 @@
 | Wearable signals contain information preceding individual FoG episodes | VERIFIED — LITERATURE | |
 | Seconds-scale FoG prediction performance remains stable to roughly 2 s before onset, declining from ~2.5 s | **PREPRINT** | Li M, Shi B, Tay A, Au WL, Tan DML, Chia NSY, Yen S-C. *Freezing Prediction Horizon: Quantifying Advanced Warning for Predicting Freezing of Gait in Parkinson's Disease.* medRxiv, posted 22 January 2026. DOI [10.64898/2026.01.21.26344382](https://www.medrxiv.org/content/10.64898/2026.01.21.26344382v1). 63 recruited, 55 with at least one freezing episode. **Explicitly not peer reviewed — must be labelled as such wherever cited.** |
 | Substantial patient heterogeneity in acute predictability; age, disease duration and FOGQ do not explain it | **PREPRINT** | Li M, Shi B, Tay A, Au WL, Tan DML, Chia NSY, Yen S-C. *Freezing Prediction Horizon: Quantifying Advanced Warning for Predicting Freezing of Gait in Parkinson's Disease.* medRxiv, posted 22 January 2026. DOI [10.64898/2026.01.21.26344382](https://www.medrxiv.org/content/10.64898/2026.01.21.26344382v1). At the 2 s horizon 43 subjects were analysed and 6 (14.0%) fell below a 75% Macro F1 threshold. **Explicitly not peer reviewed.** |
-| Our own FoG-burden estimation on held-out patients | **VERIFIED — DATA** | Spearman ρ = 0.51, p = 0.003; Pearson r = 0.65, p = 0.0001. See `RESULTS.md`. Concurrent estimation, not prospective forecasting; n = 31, single cohort, correlational, no external validation. Spearman is the headline statistic. Pearson is leverage-sensitive to one high-burden patient; excluding it gives r = 0.387, p = 0.035. The association remains significant in every single-patient deletion (r = 0.39–0.71, all p < 0.05). |
+| Our own FoG-burden estimation on held-out patients | **VERIFIED — DATA** | Spearman ρ = 0.51, p = 0.003; Pearson r = 0.65, p = 0.0001. See `RESULTS.md`. Produced by arm A (accelerometry only, movement-only), seed-averaged over 3 seeds, not the submitted model C; reconstruction recorded in `06_provenance.md`. Concurrent estimation, not prospective forecasting; n = 31, single cohort, correlational, no external validation. Spearman is the headline statistic. Pearson is leverage-sensitive to one high-burden patient; excluding it gives r = 0.387, p = 0.035. The association remains significant in every single-patient deletion (r = 0.39–0.71, all p < 0.05). |
 | Our own reported horizon curve | VERIFIED — DATA | Closed. See `RESULTS.md`; this is a weak secondary result, reported against prevalence. |
 | Clinical fusion for acute forecasting | VERIFIED — DATA | Null; see `RESULTS.md`. |
 | Personal baseline for acute forecasting | VERIFIED — DATA | Null; see `RESULTS.md`. |
@@ -121,7 +121,7 @@ the distinction, and it is the one a clinical jury will test.
 
 ## 6. Open gaps before submission
 
-- [ ] Indian burden statistic for Parkinson's, with source (`01_problem.md` §7) — source verified and recorded above; `01_problem.md` §7 text still to be updated
+- [x] Indian burden statistic for Parkinson's, with source (`01_problem.md` §7)
 - [x] Horizon curve results → VERIFIED — DATA in `RESULTS.md`
 - [x] Ablation results → recorded in `RESULTS.md`, including null results
 - [x] Per-subject failure analysis → recorded in `RESULTS.md`

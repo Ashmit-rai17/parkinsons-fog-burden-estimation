@@ -186,6 +186,10 @@ conditioning, per-patient thresholding, and LOSO shrinkage are all null
 results. Patients remain substantially heterogeneous, so a single population
 threshold does not fit everyone. The results are not deployable.
 
+`docs/06_provenance.md` records which payload values a fresh run of
+`notebooks/04_model_seeds.ipynb` reproduces, including the burden block, and
+which remain open because their producing code is not in the repository.
+
 ### 5.1 Alarm-rate accounting — known limitation
 
 - **Windows overlap.** Windows are 4 s long at a 0.5 s stride, so one real
@@ -295,9 +299,9 @@ the same cohort. It retains independent signal after adjustment for NFOGQ and
 activity level. The exact statistics are in `RESULTS.md`.
 
 These are two readouts of the twin's state design, not competing results. Say
-so, and also say what cannot be shown: the arm that produced the burden
-estimate is not recorded (the producing notebook was lost), so it is not
-demonstrated that both readouts come from the same trained model.
+so, and say which arm each comes from: forecasting from the submitted model C,
+burden estimation from the movement-only arm A. They are not the same trained
+model.
 
 This is **concurrent estimation, not prospective forecasting**: the twin
 estimates how much a patient is freezing now from movement it has not seen from

@@ -164,8 +164,12 @@ explicitly rather than assumed.
 The argument has three parts:
 
 1. **Burden.** Parkinson's prevalence rises sharply with age, and India's
-   population is ageing rapidly. → *[VERIFY: cite an Indian or ICMR/GBD
-   prevalence estimate with its source. Do not state a figure without one.]*
+   population is ageing rapidly. Community-based prevalence estimates in
+   India vary widely by region, case definition and age adjustment. A
+   door-to-door survey of 100,802 people in Kolkata (2003-2007) reported an
+   age-adjusted prevalence of 52.85 per 100,000 (World Standard Population)
+   (Das SK, Misra AK, Ray BK, et al. Neurology. 2010;75(15):1362-1369.
+   doi:10.1212/WNL.0b013e3181f735a7).
 2. **Consequence.** Falls in elderly patients drive hip fracture,
    hospitalisation, and permanent loss of independence — outcomes that are
    particularly costly where long-term rehabilitative care is limited and
@@ -176,9 +180,6 @@ The argument has three parts:
    specialists relative to population, a continuously monitoring twin
    addresses a real access gap rather than duplicating a service that already
    exists.
-
-→ **ACTION:** this section needs one verified Indian burden statistic before
-submission. Leaving it unsourced is worse than omitting it.
 
 ## 8. Problem statement (final wording)
 

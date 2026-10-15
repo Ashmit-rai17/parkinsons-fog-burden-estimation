@@ -44,6 +44,16 @@ def main() -> None:
         f"Episode-level cohort: {meta['n_patients']} patients, {meta['n_windows']:,} windows; subject-grouped {meta['folds']}-fold CV.",
         f"Final model results are averaged over {len(meta['seeds'])} seeds.",
         "",
+        "| Result | Model | Evaluation |",
+        "|---|---|---|",
+        f"| Adverse-event prediction (FoG onset, {meta['horizon_s']:g} s horizon) | C — accelerometry + personal baseline + clinical state "
+        f"| out-of-fold, subject-level GroupKFold, {meta['folds']} folds, {len(meta['seeds'])} seeds |",
+        f"| Burden estimation | A — accelerometry only, seed-averaged over {len(meta['seeds'])} seeds "
+        f"| out-of-fold, patient-level, n = {burden['n_patients']}, over the {meta['horizon_s']:.1f} s evaluation mask |",
+        "",
+        "Estimate is a mean predicted risk and actual_rate a positive-window fraction: different quantities on different scales; "
+        "the reported association is rank-based.",
+        "",
         "## Burden estimation",
         "",
         "Primary result: concurrent, out-of-fold estimation of FoG burden on held-out patients; not prospective forecasting of future burden.",
