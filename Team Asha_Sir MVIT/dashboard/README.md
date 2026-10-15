@@ -18,6 +18,15 @@ notebook. `_template.html` contains the dashboard UI. The build embeds that
 payload and `synthetic_patient.json` into `index.html`, so `fetch()` is never
 needed under `file://`.
 
+## What is embedded
+
+Besides the derived statistics, `index.html` contains up to three 4-second
+windows of real accelerometry per subject (35 subjects, 105 windows), recorded
+at 100 Hz and decimated to 50 Hz for display, selected by recording order. This
+is an illustrative excerpt. The [TLVMC Parkinson's Freezing of Gait
+dataset](https://www.kaggle.com/competitions/tlvmc-parkinsons-freezing-gait-prediction)
+itself is linked, not redistributed.
+
 The synthetic patient is visibly labelled SYNTHETIC and is excluded from every
 cohort statistic; `build_dashboard.py` asserts that it cannot enter the burden
 analysis.

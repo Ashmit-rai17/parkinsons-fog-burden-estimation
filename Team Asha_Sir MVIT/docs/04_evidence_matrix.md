@@ -1,6 +1,6 @@
 # 04 — Evidence Matrix
 
-**Status:** LIVE — update when any claim changes · **Last updated:** 12 October 2026
+**Status:** LIVE — update when any claim changes · **Last updated:** 14 October 2026
 
 > Every substantive claim this project makes is listed here with its evidence
 > class. If a claim is not in this table, it should not appear in the
@@ -41,7 +41,7 @@
 | Stride length progressively decreases in the strides preceding a freeze | VERIFIED — LITERATURE | |
 | Future FoG onset is a legitimate prognostic problem over multi-year horizons | VERIFIED — LITERATURE | Multiple prospective cohorts and a meta-analysis |
 | Days-to-weeks FoG risk is a clinically validated endpoint | **UNKNOWN** | No established horizon. This is why it is not our target. |
-| Parkinson's disease burden in India | **→ TO VERIFY** | `01_problem.md` §7. Needs one sourced figure before submission. |
+| Parkinson's disease prevalence in India: Kolkata door-to-door survey of 100,802 people, age-adjusted prevalence 52.85 per 100,000 (World Standard Population) | VERIFIED — LITERATURE | Das SK, Misra AK, Ray BK, et al. *Neurology*. 2010;75(15):1362–1369. doi:10.1212/WNL.0b013e3181f735a7. One city, one method; Indian estimates vary widely by region and method, so do not present it as a national figure. Do **not** cite the Bombay Parsi community figure: an ethnically distinct population that does not generalise. |
 
 ## 2. Prediction-horizon claims
 
@@ -49,9 +49,9 @@
 |---|---|---|
 | FoG can be detected from lower-back accelerometry | VERIFIED — LITERATURE | Large existing literature |
 | Wearable signals contain information preceding individual FoG episodes | VERIFIED — LITERATURE | |
-| Seconds-scale FoG prediction performance remains stable to roughly 2 s before onset, declining from ~2.5 s | **PREPRINT** | 2026 medRxiv preprint, 55-patient cohort. **Explicitly not peer reviewed — must be labelled as such wherever cited.** |
-| Substantial patient heterogeneity in acute predictability; age, disease duration and FOGQ do not explain it | **PREPRINT** | Same source. 6/43 subjects below threshold at the 2 s horizon. |
-| Our own FoG-burden estimation on held-out patients | **VERIFIED — DATA** | Spearman ρ = 0.51, p = 0.003; Pearson r = 0.65, p = 0.0001. See `RESULTS.md`. Concurrent estimation, not prospective forecasting; n = 31, single cohort, correlational, no external validation. Lead with Spearman. Pearson is leverage-sensitive to one high-burden patient; excluding it gives r = 0.387, p = 0.035. The association remains significant in every single-patient deletion (r = 0.39–0.71, all p < 0.05). |
+| Seconds-scale FoG prediction performance remains stable to roughly 2 s before onset, declining from ~2.5 s | **PREPRINT** | Li M, Shi B, Tay A, Au WL, Tan DML, Chia NSY, Yen S-C. *Freezing Prediction Horizon: Quantifying Advanced Warning for Predicting Freezing of Gait in Parkinson's Disease.* medRxiv, posted 22 January 2026. DOI [10.64898/2026.01.21.26344382](https://www.medrxiv.org/content/10.64898/2026.01.21.26344382v1). 63 recruited, 55 with at least one freezing episode. **Explicitly not peer reviewed — must be labelled as such wherever cited.** |
+| Substantial patient heterogeneity in acute predictability; age, disease duration and FOGQ do not explain it | **PREPRINT** | Li M, Shi B, Tay A, Au WL, Tan DML, Chia NSY, Yen S-C. *Freezing Prediction Horizon: Quantifying Advanced Warning for Predicting Freezing of Gait in Parkinson's Disease.* medRxiv, posted 22 January 2026. DOI [10.64898/2026.01.21.26344382](https://www.medrxiv.org/content/10.64898/2026.01.21.26344382v1). At the 2 s horizon 43 subjects were analysed and 6 (14.0%) fell below a 75% Macro F1 threshold. **Explicitly not peer reviewed.** |
+| Our own FoG-burden estimation on held-out patients | **VERIFIED — DATA** | Spearman ρ = 0.51, p = 0.003; Pearson r = 0.65, p = 0.0001. See `RESULTS.md`. Concurrent estimation, not prospective forecasting; n = 31, single cohort, correlational, no external validation. Spearman is the headline statistic. Pearson is leverage-sensitive to one high-burden patient; excluding it gives r = 0.387, p = 0.035. The association remains significant in every single-patient deletion (r = 0.39–0.71, all p < 0.05). |
 | Our own reported horizon curve | VERIFIED — DATA | Closed. See `RESULTS.md`; this is a weak secondary result, reported against prevalence. |
 | Clinical fusion for acute forecasting | VERIFIED — DATA | Null; see `RESULTS.md`. |
 | Personal baseline for acute forecasting | VERIFIED — DATA | Null; see `RESULTS.md`. |
@@ -100,8 +100,8 @@ time-series data"). We use it, within one hard boundary.
 
 | Use | Status |
 |---|---|
-| Dashboard demo patient — a fully synthetic patient with labs, genetic markers, past diagnoses and multiple visits | **SYNTHETIC** — labelled as such in the UI |
-| Demonstrating longitudinal state evolution across simulated visits | **SYNTHETIC** — mechanism demonstration only |
+| Dashboard demo patient — a fully synthetic patient with clinical state, personal baseline and risk trace, using only the twin's declared data streams (no labs, genetic markers, medications or dated visits) | **SYNTHETIC** — labelled as such in the UI |
+| Demonstrating longitudinal state evolution across simulated visits | **Not used.** Removed so no Visit 1 → Visit 2 interval is implied. |
 | Augmentation of rare pre-FoG windows | **SYNTHETIC** — optional; not used in reported metrics |
 | Any number in the results table | **Never synthetic.** Every reported metric comes from real held-out subjects. |
 
@@ -121,12 +121,12 @@ the distinction, and it is the one a clinical jury will test.
 
 ## 6. Open gaps before submission
 
-- [ ] Indian burden statistic for Parkinson's, with source (`01_problem.md` §7)
+- [ ] Indian burden statistic for Parkinson's, with source (`01_problem.md` §7) — source verified and recorded above; `01_problem.md` §7 text still to be updated
 - [x] Horizon curve results → VERIFIED — DATA in `RESULTS.md`
 - [x] Ablation results → recorded in `RESULTS.md`, including null results
 - [x] Per-subject failure analysis → recorded in `RESULTS.md`
 - [x] Daily-recording continuity → verified across 36 files
-- [ ] Final licence choice recorded in README and `LICENSE`
+- [x] Final licence choice recorded in README and `LICENSE` (MIT)
 
 ## 7. Rule for the video and deck
 

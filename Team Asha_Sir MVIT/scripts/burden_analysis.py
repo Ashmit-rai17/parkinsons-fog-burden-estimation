@@ -132,13 +132,16 @@ def main() -> int:
              "jackknife_p_max"]
     print(f"{'statistic':<20} {'recomputed (full)':>18} {'recomputed':>12} {'stored':>10}  match")
     print("-" * 72)
+    not_checked: list[str] = []
     for key in order:
         if key not in burden:
             print(f"{key:<20} {'':>18} {'':>12} {'ABSENT':>10}  not in payload")
+            not_checked.append(key)
             continue
         stored = burden[key]
         if key not in computed:
             print(f"{key:<20} {'':>18} {'SKIPPED':>12} {stored!r:>10}  not checked")
+            not_checked.append(key)
             continue
         places = stored_places(stored)
         got = at_precision(computed[key], places)
@@ -162,6 +165,11 @@ def main() -> int:
         print(f"FAIL: {len(failures)} mismatch(es)")
         for f in failures:
             print(f"  - {f}")
+        return 1
+    if not_checked:
+        # A partial check must never read as a full pass.
+        print(f"PASS: {len(order) - len(not_checked)} statistics verified. "
+              f"{len(not_checked)} NOT CHECKED: {', '.join(not_checked)}.")
         return 1
     print("PASS: every recomputed statistic matches the stored value at stored precision.")
     return 0

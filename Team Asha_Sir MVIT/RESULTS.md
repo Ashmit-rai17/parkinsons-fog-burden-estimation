@@ -15,7 +15,9 @@ Primary result: concurrent, out-of-fold estimation of FoG burden on held-out pat
 - Partial correlation controlling for NFOGQ: r = 0.609, p = 0.00035.
 - Partial correlation controlling for activity level: r = 0.658, p = 0.00008.
 
-Caveats: single cohort, correlational, and no external validation. Pearson is leverage-sensitive: the leave-one-patient-out range is r = 0.387–0.712, with all p ≤ 0.035. Pearson influenced by one high-burden patient (r falls to 0.387, p=0.035 when excluded); Spearman and the jackknife are stable.
+Caveats: single cohort, correlational, and no external validation. Spearman is the headline statistic because Pearson is leverage-sensitive: excluding the single highest-burden patient gives r = 0.387 (p = 0.035); across all leave-one-patient-out deletions r spans 0.387–0.712, all p ≤ 0.035.
+
+Inference treats the 31 patients as the independent units (one estimate and one observed rate per patient), not the 45,224 windows; `scripts/burden_analysis.py` recomputes every statistic above from the 31 per-patient rows.
 
 ## Horizon curve
 
@@ -36,6 +38,8 @@ AUPRC mean over folds; chance level is prevalence.
 
 C - accelerometry + personal baseline + clinical state (seed-averaged over 3 seeds)
 
+Model C is submitted even though it does not outperform the accelerometry-only arm (A) in the ablation, because it is the only arm that uses both required data streams, static clinical state and dynamic accelerometry, and the challenge requires two-stream fusion.
+
 ## Personalisation
 
 | Mechanism | Change | Wins |
@@ -47,8 +51,8 @@ C - accelerometry + personal baseline + clinical state (seed-averaged over 3 see
 
 ## Heterogeneity
 
-- 9/27 patients fall below twice their own event rate at the 2.0 s horizon.
-- Per-patient optimal thresholds span 0.106–1.000; the global threshold is 0.578.
+- 9/27 patients have a per-patient AUPRC below twice their own event rate at the 2.0 s horizon.
+- Per-patient optimal thresholds span 0.106–0.9998; the global threshold is 0.578.
 
 ## Operating points
 

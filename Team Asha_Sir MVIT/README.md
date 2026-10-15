@@ -9,21 +9,15 @@
 | **Team leader** | Ashmit Rai |
 | **Condition** | Parkinson's disease — freezing of gait (FoG) |
 | **Licence** | MIT (see `LICENSE`) |
-| **Video demo** | [LINK — add before submission] |
+| **Video demo** | [to be added before submission] |
 
 ---
 
 ## What this is
 
-A movement-only digital twin that estimates a Parkinson's patient's current
-freezing-of-gait (FoG) burden from movement unseen during training for that
-patient. On held-out patients, Spearman ρ = 0.51 (p = 0.003) and Pearson
-r = 0.65 (p = 0.0001); standard NFOGQ does not reach significance in the same
-cohort (r = 0.35, p = 0.051). The twin retains independent signal after
-controlling for NFOGQ (r = 0.61, p = 0.00035) and activity level (r = 0.66,
-p = 0.00008). Final values are reported in `RESULTS.md`.
-
-The twin fuses two data streams, as the challenge requires:
+A digital twin of freezing of gait (FoG) in Parkinson's disease. The twin
+maintains a patient state built from the two data streams the challenge
+requires:
 
 - **Static / historical** — demographics, years since diagnosis, UPDRS-III
   (on and off medication), NFOGQ, medication state at recording time.
@@ -31,10 +25,38 @@ The twin fuses two data streams, as the challenge requires:
   including approximately one week of uninterrupted 24/7 home recording per
   patient.
 
-The burden estimator is movement-only. The submitted model remains **Model C**:
-a fusion of the patient's movement history, static clinical state, and
-continuous accelerometry. The acute episode-warning task remains a weak
-secondary result; burden estimation is the primary validated output.
+Two readouts are taken from that patient state (`docs/02_twin_spec.md`, §4):
+
+1. **Adverse-event prediction — the readout the challenge asks for.** The
+   probability that a freezing episode begins within a short horizon,
+   evaluated from 0.5 to 5 s and reported at 2.0 s. The submitted model (C)
+   reaches roughly 2.5× the prevalence floor at 2.0 s. That is above chance
+   and not deployable: performance degrades with lead time, no operating
+   point keeps the alarm off for most of the monitored time, and all four
+   personalisation mechanisms tested were null. Operating points and
+   limitations are in `RESULTS.md`.
+2. **Concurrent freezing-burden estimation.** How much a patient is freezing
+   now, estimated from movement the model has not seen from that patient. This
+   is the readout with the stronger validation: on 31 held-out patients,
+   Spearman ρ = 0.51 (p = 0.003) and Pearson r = 0.65 (p = 0.0001), while the
+   standard NFOGQ questionnaire does not reach significance in the same cohort
+   (r = 0.35, p = 0.051). The estimate keeps independent signal after
+   controlling for NFOGQ (r = 0.61, p = 0.00035) and activity level (r = 0.66,
+   p = 0.00008). Final values are in `RESULTS.md`.
+
+These are two outputs of the twin's patient-state design, not competing
+results. One limit on that statement: the forecasting result is measured on
+model C, while the burden estimate is recorded only as coming from a
+movement-only arm. The notebook that produced it was lost, so which arm
+produced it, and therefore whether both readouts come from the same trained
+model, cannot be verified from this repository.
+
+The submitted model is **Model C**: a fusion of the patient's movement history,
+static clinical state, and continuous accelerometry. Model C is submitted even
+though it does not outperform the accelerometry-only arm (A) in the ablation,
+because it is the only arm that uses both required data streams, static
+clinical state and dynamic accelerometry, and the challenge requires
+two-stream fusion.
 
 ![Held-out burden estimation](figures/fig5_burden_estimation.png)
 
@@ -45,9 +67,14 @@ secondary result; burden estimation is the primary validated output.
   from that patient. It does not predict future burden.
 - The result is correlational, from one cohort of 31 patients, with no external
   validation.
-- Lead with Spearman. Pearson is leverage-sensitive: one high-burden patient
-  drives part of it. Excluding that patient gives r = 0.387 (p = 0.035); across
-  all single-patient deletions r spans 0.39–0.71 and remains significant.
+- Statistical inference treats the 31 patients as the independent units (one
+  estimate and one observed rate per patient), not the individual windows;
+  `scripts/burden_analysis.py` recomputes every burden statistic from those 31
+  per-patient rows.
+- Spearman is the headline statistic because Pearson is leverage-sensitive:
+  excluding the single highest-burden patient gives r = 0.387 (p = 0.035).
+  Across all single-patient deletions r spans 0.387–0.712 and remains
+  significant.
 
 ## Why this is a twin and not a classifier
 
@@ -71,13 +98,13 @@ representation is learned from data that contains no answers.
 We report an ablation (raw encoder → + deviation → + clinical state) so the
 contribution of the twin's state representation is measured, not asserted.
 
-## Secondary episode-level forecasting
+## Adverse-event prediction — episode forecasting
 
 At time *t*, using only information available at *t*, estimate the probability
 of FoG onset within a horizon *h*.
 
-We report performance **as a function of *h*** across 0.5–5 s. This secondary
-analysis remains weak, at roughly 2–3× chance; four personalisation mechanisms
+We report performance **as a function of *h*** across 0.5–5 s. This readout
+remains weak, at roughly 2–3× chance; four personalisation mechanisms
 were tested and all four were null. Full values are in `RESULTS.md`.
 
 Full specification, including leakage rules: `docs/03_data_and_target.md`.
@@ -106,9 +133,10 @@ Extended version: `docs/02_twin_spec.md`, §7.
 | `docs/00_workflow.md` | **Start here** — decisions, pipeline, results, remaining work |
 | `docs/04_evidence_matrix.md` | Every claim with its evidence class and source |
 
-**Start with `docs/04_evidence_matrix.md`.** Every substantive claim in this
-repository is labelled VERIFIED / INFERRED / ASSUMED / SYNTHETIC, with its
-source. Nothing is stated more strongly than its evidence supports.
+Every substantive claim is traceable in `docs/04_evidence_matrix.md`, labelled
+VERIFIED — DATA, VERIFIED — LITERATURE, PREPRINT, INFERRED, ASSUMED, SYNTHETIC
+or UNKNOWN, with its source. One claim (Parkinson's burden in India) is still
+marked TO VERIFY. Nothing is stated more strongly than its evidence supports.
 
 ## Technical stack
 
@@ -118,7 +146,9 @@ source. Nothing is stated more strongly than its evidence supports.
   vector, static clinical state
 - Evaluation: subject-level `GroupKFold` — no subject appears in more than one
   fold
-- Dashboard: single self-contained HTML page (`dashboard/index.html`), reading `dashboard/twin_data.json`
+- Dashboard: a single self-contained HTML page (`dashboard/index.html`). The
+  canonical payload is embedded at build time, so the page needs no network
+  request, no server and no `fetch()`.
 
 ## Data
 
@@ -129,17 +159,40 @@ documented in `docs/03_data_and_target.md`.
 ## Repository layout
 
 ```
-.
-├── README.md
-├── LICENSE
+Team Asha_Sir MVIT/
+├── README.md                 this file — submission entry point
+├── CLAUDE.md                 working rules for contributors
+├── LICENSE                   MIT
+├── RESULTS.md                generated results summary (from twin_data.json)
 ├── docs/
+│   ├── 00_workflow.md        start here — decisions, pipeline, status
 │   ├── 01_problem.md
 │   ├── 02_twin_spec.md
 │   ├── 03_data_and_target.md
-│   ├── 04_evidence_matrix.md
-│   └── architecture.pdf
-├── presentation.pdf
-└── notebooks/
+│   └── 04_evidence_matrix.md
+├── dashboard/
+│   ├── README.md
+│   ├── index.html            self-contained dashboard (built)
+│   ├── _template.html        dashboard UI template
+│   ├── twin_data.json        canonical results payload
+│   └── synthetic_patient.json
+├── figures/
+│   ├── fig1_horizon_curve.png
+│   ├── fig2_per_patient.png
+│   ├── fig3_operating_point.png
+│   ├── fig4_personalisation_nulls.png
+│   └── fig5_burden_estimation.png
+├── notebooks/
+│   ├── README.md
+│   ├── 02_preprocessing.ipynb
+│   └── 04_model_seeds.ipynb
+└── scripts/
+    ├── build_dashboard.py
+    ├── burden_analysis.py
+    ├── export_signal_snippets.py
+    ├── make_results.py
+    ├── make_synthetic_patient.py
+    └── merge_signal_fragment.py
 ```
 
 ## Reproducing

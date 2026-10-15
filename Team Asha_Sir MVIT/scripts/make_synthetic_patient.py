@@ -23,7 +23,7 @@ def main() -> None:
             "subject": "SYN-001", "synthetic": True, "visit": 2, "age": 68,
             "sex": "F", "years_dx": 9, "updrs_on": 24, "updrs_off": 35,
             "nfogq": 18, "med_on": True, "n_windows": len(times),
-            "event_rate": 0.041, "auprc": 0.168, "auprc_accel_only": 0.151,
+            "event_rate": 0.041,
             "threshold_personal": 0.49, "activity_fraction": 0.14,
             "baseline": {
                 "mag_mean": 0.98, "mag_std": 0.09, "mag_absdev": 0.07,
@@ -34,7 +34,9 @@ def main() -> None:
         },
         "trace": {
             "rec_id": "SYNTHETIC", "t": times, "risk": risk,
-            "label": [1 if i in onsets else 0 for i in range(len(times))],
+            # Same convention as the real traces: label marks the window that ends
+            # 2.0 s (4 windows) before an onset, i.e. the positive at meta.horizon_s.
+            "label": [1 if i + 4 in onsets else 0 for i in range(len(times))],
             "dev": [round(0.45 * math.sin(i / 10), 3) for i in range(len(times))],
         },
     }

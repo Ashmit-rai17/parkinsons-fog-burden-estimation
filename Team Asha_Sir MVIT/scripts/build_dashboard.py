@@ -16,6 +16,9 @@ if syn.exists():
     data["traces"][s["patient"]["subject"]] = s["trace"]
     assert not any(p["subject"] == s["patient"]["subject"]
                    for p in data["burden"]["per_patient"]), "synthetic leaked into burden stats"
-out = tpl.replace("/*__TWIN_DATA__*/null", json.dumps(data, separators=(",", ":")))
+TOKEN = "/*__TWIN_DATA__*/null"
+assert tpl.count(TOKEN) == 1, f"expected exactly one {TOKEN} in _template.html, found {tpl.count(TOKEN)}"
+out = tpl.replace(TOKEN, json.dumps(data, separators=(",", ":")))
+assert TOKEN not in out, "token survived substitution"
 (root / "dashboard" / "index.html").write_text(out)
 print("wrote dashboard/index.html", len(out) // 1024, "KB")

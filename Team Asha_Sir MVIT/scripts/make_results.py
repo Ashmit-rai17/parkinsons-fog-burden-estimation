@@ -17,7 +17,14 @@ def fmt(value: float, digits: int = 4) -> str:
 
 
 def fmt_p(value: float) -> str:
-    """Format p-values without implying more precision than the source data."""
+    """Format p-values without implying more precision than the source data.
+
+    Below 1e-5 the fixed 5-decimal form would round to "0", so switch to
+    scientific notation there. The cut-off is 1e-5, not 1e-4, so that current
+    values such as 9e-05 keep their existing "0.00009" rendering.
+    """
+    if value < 1e-5:
+        return f"{value:.2e}"
     return f"{value:.5f}".rstrip("0").rstrip(".")
 
 
@@ -48,8 +55,13 @@ def main() -> None:
         f"- Partial correlation controlling for activity level: r = {burden['partial_r_activity']:.3f}, p = {fmt_p(burden['partial_p_activity'])}.",
         "",
         "Caveats: single cohort, correlational, and no external validation. "
-        f"Pearson is leverage-sensitive: the leave-one-patient-out range is r = {burden['jackknife_r_min']:.3f}–{burden['jackknife_r_max']:.3f}, "
-        f"with all p ≤ {fmt_p(burden['jackknife_p_max'])}. {burden['leverage_note']}",
+        "Spearman is the headline statistic because Pearson is leverage-sensitive: "
+        f"excluding the single highest-burden patient gives r = {burden['jackknife_r_min']:.3f} (p = {fmt_p(burden['jackknife_p_max'])}); "
+        f"across all leave-one-patient-out deletions r spans {burden['jackknife_r_min']:.3f}–{burden['jackknife_r_max']:.3f}, "
+        f"all p ≤ {fmt_p(burden['jackknife_p_max'])}.",
+        "",
+        f"Inference treats the {burden['n_patients']} patients as the independent units (one estimate and one observed rate per patient), "
+        f"not the {meta['n_windows']:,} windows; `scripts/burden_analysis.py` recomputes every statistic above from the {burden['n_patients']} per-patient rows.",
         "",
         "## Horizon curve",
         "",
@@ -70,6 +82,8 @@ def main() -> None:
         "",
         str(meta["submitted_model"]),
         "",
+        "Model C is submitted even though it does not outperform the accelerometry-only arm (A) in the ablation, because it is the only arm that uses both required data streams, static clinical state and dynamic accelerometry, and the challenge requires two-stream fusion.",
+        "",
         "## Personalisation",
         "",
         "| Mechanism | Change | Wins |",
@@ -83,8 +97,8 @@ def main() -> None:
         "",
         "## Heterogeneity",
         "",
-        f"- {heterogeneity['below_2x']}/{heterogeneity['n_evaluated']} patients fall below twice their own event rate at the {meta['horizon_s']:.1f} s horizon.",
-        f"- Per-patient optimal thresholds span {heterogeneity['threshold_min']:.3f}–{heterogeneity['threshold_max']:.3f}; the global threshold is {meta['threshold_global']:.3f}.",
+        f"- {heterogeneity['below_2x']}/{heterogeneity['n_evaluated']} patients have a per-patient AUPRC below twice their own event rate at the {meta['horizon_s']:.1f} s horizon.",
+        f"- Per-patient optimal thresholds span {heterogeneity['threshold_min']:.3f}–{heterogeneity['threshold_max']:.4f}; the global threshold is {meta['threshold_global']:.3f}.",
         "",
         "## Operating points",
         "",

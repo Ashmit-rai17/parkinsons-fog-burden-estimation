@@ -55,6 +55,11 @@
   --inverse-surface: #213145;
   --surface-container: #e5eeff;
   --surface-tint: #006a61;
+  --chart-a: #3174b5;
+  --chart-b: #b56e00;
+  --chart-grid: #e9eef1;
+  --chart-band: #167b7d;
+  color-scheme: light dark;
   --radius:.125rem; --radius-lg:.25rem; --radius-xl:.5rem; --radius-full:.75rem;
 }
 *,::before,::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}
@@ -393,7 +398,11 @@ img,video{max-width:100%;height:auto}
 .lg\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
 .lg\:grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}
 .lg\:p-space-xl{padding:1.5rem}
-.lg\:w-\[270px\]{width:270px}}
+.lg\:w-\[270px\]{width:270px}
+.lg\:sticky{position:sticky}
+.lg\:top-\[5\.5rem\]{top:5.5rem}
+.lg\:self-start{align-self:flex-start}
+.lg\:max-h-\[calc\(100vh-5\.5rem\)\]{max-height:calc(100vh - 5.5rem)}}
 @media (min-width:1280px){.xl\:col-span-2{grid-column:span 2 / span 2}
 .xl\:col-span-4{grid-column:span 4 / span 4}
 .xl\:col-span-6{grid-column:span 6 / span 6}
@@ -410,6 +419,159 @@ body:not(.tech) .tech-only{display:none!important}
 .pose-figure{transition:transform .25s ease,opacity .25s ease}
 .pose-limb{transition:stroke .25s ease,stroke-width .25s ease}
 #pose-pulse,#pose-marker,#pose-vec,#pose-vec-dot{transition:fill .25s ease,stroke .25s ease}
+/* ---- chart marks: colour from tokens so they follow the colour scheme ---- */
+.accent-primary{accent-color:var(--primary)}
+.bg-chart-a{background-color:var(--chart-a)}
+.bg-chart-b{background-color:var(--chart-b)}
+.sv-grid{stroke:var(--surface-container-high);stroke-dasharray:2 3}
+.sv-axis{stroke:var(--outline-variant)}
+.sv-label{fill:var(--outline);font-size:10px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
+.sv-title{fill:var(--on-surface-variant);font-size:10px}
+.sv-pt{fill:var(--outline);fill-opacity:.6}
+.sv-pt-sel{fill:var(--primary);stroke:var(--surface-container-lowest);stroke-width:2}
+.sv-ring{fill:var(--primary);fill-opacity:.18}
+.sv-fit{stroke:var(--primary);stroke-width:2;fill:none}
+.sv-excl{fill:none;stroke:var(--outline);stroke-width:1.5;stroke-dasharray:2 2}
+.het-sel > .rounded-t{outline:2px solid var(--on-surface);outline-offset:1px}
+/* ---- clinical-encounter components (screens 1 and 2) ---- */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.self-start{align-self:flex-start}
+.eyebrow{font-size:.6875rem;line-height:.875rem;letter-spacing:.05em;text-transform:uppercase;font-weight:600;color:var(--on-surface-variant)}
+.note{font-size:.8125rem;line-height:1.25rem;color:var(--on-surface-variant)}
+.caption{font-size:.6875rem;line-height:1rem;color:var(--on-surface-variant)}
+.caveat{font-size:.8125rem;line-height:1.25rem;color:var(--on-surface);border-left:3px solid var(--tertiary);padding-left:.5rem}
+.chip{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:.6875rem;padding:.125rem .5rem;border-radius:.125rem;background:var(--surface-container);color:var(--on-surface-variant)}
+.card{background:var(--surface-container-lowest);border-radius:.25rem;box-shadow:0 1px 2px 0 rgb(0 0 0 / .05)}
+.btn{display:inline-flex;align-items:center;gap:.375rem;padding:.375rem .625rem;border-radius:.25rem;background:var(--surface-container-low);color:var(--on-surface);font-size:.75rem;line-height:1rem;font-weight:600;border:1px solid var(--outline-variant)}
+.btn:hover{background:var(--surface-container)}
+.btn-primary{background:var(--primary);color:var(--on-primary);border-color:var(--primary)}
+.btn-primary:hover{background:var(--primary-container);color:var(--on-primary-container)}
+.btn[aria-pressed="true"]{background:var(--surface-container-highest);border-color:var(--outline)}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+.range{width:100%;accent-color:var(--primary)}
+.big-num{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:2.25rem;line-height:2.5rem;font-weight:700;color:var(--on-surface)}
+.syn-badge{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:.6875rem;font-weight:700;text-transform:uppercase;padding:.125rem .375rem;border-radius:.125rem;background:var(--tertiary-fixed);color:var(--on-tertiary-fixed)}
+.pp-table th,.pp-table td{padding:.5rem .75rem;border-bottom:1px solid var(--surface-container);font-size:.8125rem;vertical-align:middle}
+.pp-table thead th{background:var(--surface-container-low);white-space:nowrap}
+.pp-table tbody tr{cursor:pointer}
+.pp-table tbody tr:hover{background:var(--surface-container-low)}
+.pp-table th.num{text-align:right}
+.pp-table th.num .sort-btn{justify-content:flex-end}
+.pp-table .num{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;text-align:right}
+.sort-btn{display:inline-flex;align-items:center;gap:.25rem;font-size:.6875rem;letter-spacing:.03em;text-transform:uppercase;font-weight:600;color:var(--on-surface-variant)}
+.sort-ind{font-size:.625rem;color:var(--primary)}
+.pp-est{display:flex;align-items:center;gap:.5rem}
+.pp-bar{display:block;width:5rem;height:.375rem;border-radius:.75rem;background:var(--surface-container-high);overflow:hidden}
+.pp-bar > span{display:block;height:100%;background:var(--primary)}
+.pp-muted{font-style:italic;color:var(--on-surface-variant)}
+.band{background:var(--surface-container-lowest);border-radius:.25rem;padding:1rem 1.25rem;display:flex;flex-direction:column;gap:.75rem;box-shadow:0 1px 2px 0 rgb(0 0 0 / .05)}
+.band-hero{border-top:4px solid var(--primary);padding:1.25rem 1.5rem}
+.band-conceptual{border:1px dashed var(--outline);box-shadow:none}
+.band-head{display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap}
+.band-title{font-size:1.0625rem;line-height:1.5rem;font-weight:600;color:var(--on-surface)}
+.band-title-lg{font-size:1.375rem;line-height:1.875rem}
+.kv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.5rem;margin:0}
+.kv{background:var(--surface-container-low);border-radius:.25rem;padding:.5rem .625rem;display:flex;flex-direction:column;gap:.125rem}
+.kv dt{font-size:.6875rem;letter-spacing:.03em;text-transform:uppercase;color:var(--on-surface-variant)}
+.kv dd{margin:0;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:1rem;font-weight:600;color:var(--on-surface)}
+.b2-grid{display:grid;grid-template-columns:1fr;gap:1rem;align-items:center}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:.375rem}
+.disclosure > summary{cursor:pointer;font-size:.8125rem;font-weight:600;color:var(--on-surface);padding:.25rem 0}
+details.card{padding:1rem 1.25rem}
+.b3-grid{display:grid;grid-template-columns:1fr;gap:1rem}
+.pose-cell{align-self:start;background:var(--surface-container-low);border-radius:.25rem;padding:.75rem;display:flex;flex-direction:column;align-items:center;gap:.25rem}
+.readouts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem}
+.readout{background:var(--surface-container-low);border-radius:.25rem;padding:.5rem .75rem;display:flex;flex-direction:column;gap:.25rem;min-width:0}
+.readout-value{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:1.75rem;line-height:2rem;font-weight:700;color:var(--on-surface)}
+.readout-sub{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:.8125rem;line-height:1.25rem;color:var(--on-surface)}
+.alarm-chip{align-self:flex-start;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:1rem;line-height:1.5rem;font-weight:700;text-transform:uppercase;padding:.25rem .625rem;border-radius:.25rem;background:var(--surface-container);color:var(--on-surface-variant)}
+.alarm-chip.on{background:var(--error);color:var(--on-error)}
+.tl-detail{background:var(--surface-container-low);border-radius:.25rem}
+.tl-overview{cursor:pointer}
+.controls-grid{display:grid;grid-template-columns:1fr;gap:.75rem}
+.control{background:var(--surface-container-low);border-radius:.25rem;padding:.625rem .75rem;display:flex;flex-direction:column;gap:.375rem}
+.concept-badge{font-size:.6875rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.125rem .5rem;border-radius:.125rem;border:1px dashed var(--outline);color:var(--on-surface-variant)}
+.concept-grid{display:grid;grid-template-columns:1fr;gap:.75rem}
+.concept-item{display:flex;flex-direction:column;gap:.25rem}
+.concept-note{width:100%;font:inherit;font-size:.75rem;padding:.375rem .5rem;border-radius:.25rem;border:1px solid var(--outline-variant);background:var(--surface-container-low);color:var(--on-surface-variant);resize:none}
+.tl-seg{fill:var(--surface-container-lowest)}
+.tl-gap{fill:var(--surface-container-high)}
+.tl-gap-label{fill:var(--on-surface-variant);font-size:10px}
+.tl-risk{fill:none;stroke:var(--on-surface);stroke-width:1.8}
+.tl-thr{stroke:var(--error);stroke-width:1.2;stroke-dasharray:5 4}
+.tl-alarm{fill:var(--error)}
+.tl-warn{fill:var(--tertiary);fill-opacity:.26}
+.tl-warn-label{fill:var(--tertiary);font-size:10px;font-weight:600}
+.tl-onset{stroke:var(--error);stroke-width:2.2}
+.tl-onset-label{fill:var(--error);font-size:10px;font-weight:700}
+.tl-play{stroke:var(--primary);stroke-width:2.5}
+.tl-axis{fill:var(--on-surface-variant);font-size:10px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
+.tl-hit{fill:transparent}
+.ov-seg{fill:var(--outline-variant)}
+.ov-onset{stroke:var(--error);stroke-width:1.5}
+.ov-view{fill:var(--primary);fill-opacity:.14}
+.hb-auprc{fill:var(--primary)}
+.hb-prev{fill:var(--outline)}
+@media (min-width:768px){.concept-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.controls-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.readouts{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (min-width:1024px){.b2-grid{grid-template-columns:minmax(220px,1fr) 2fr}.b3-grid{grid-template-columns:260px minmax(0,1fr)}}
+/* Dark scheme: same token names, dark values. Elevation reads as lighter
+   surfaces (page < card < nested panel). The "fixed" tokens (banner, accents)
+   are scheme-invariant, as in the light palette. Measured WCAG contrast in this
+   scheme: alarm chip on-error/error 7.7:1; error text on cards 10.0:1; error
+   marks on chart panels 9.7:1; outline labels on cards 5.9:1. */
+@media (prefers-color-scheme: dark){
+:root{
+  --background: #0e1521; --surface: #0e1521; --surface-dim: #0e1521; --surface-bright: #343c4a;
+  --surface-container-lowest: #151d2a; --surface-container-low: #1b2432; --surface-container: #222b3a;
+  --surface-container-high: #2c3546; --surface-container-highest: #374051; --surface-variant: #374051;
+  --on-surface: #e1e8f5; --on-background: #e1e8f5; --on-surface-variant: #bfcac7;
+  --outline: #8f9b98; --outline-variant: #434e52;
+  --primary: #6bd8cb; --on-primary: #003732; --primary-container: #00574e; --on-primary-container: #a9f4ea;
+  --secondary: #80d5cb; --on-secondary: #003732; --secondary-container: #00504a; --on-secondary-container: #9cf2e8;
+  --tertiary: #ffb95f; --on-tertiary: #472a00; --tertiary-container: #653e00; --on-tertiary-container: #ffddb8;
+  --error: #ffb4ab; --on-error: #690005; --error-container: #93000a; --on-error-container: #ffdad6;
+  --inverse-surface: #e1e8f5; --inverse-on-surface: #213145; --inverse-primary: #00685f; --surface-tint: #6bd8cb;
+  --chart-a: #8ab8ec; --chart-b: #f0a64e; --chart-grid: #2c3546; --chart-band: #6bd8cb;
+}
+body{background-color:#0e1521;background-color:var(--background);color:var(--on-surface)}
+*,::before,::after{border-color:var(--outline-variant)}
+.border-error\/20{border-color:color-mix(in srgb,var(--error) 20%,transparent)}
+.border-outline-variant\/20{border-color:color-mix(in srgb,var(--outline-variant) 20%,transparent)}
+.border-outline-variant\/30{border-color:color-mix(in srgb,var(--outline-variant) 30%,transparent)}
+.border-outline-variant\/40{border-color:color-mix(in srgb,var(--outline-variant) 40%,transparent)}
+.border-outline-variant\/50{border-color:color-mix(in srgb,var(--outline-variant) 50%,transparent)}
+.border-primary\/20{border-color:color-mix(in srgb,var(--primary) 20%,transparent)}
+.border-secondary\/30{border-color:color-mix(in srgb,var(--secondary) 30%,transparent)}
+.bg-error-container\/30{background-color:color-mix(in srgb,var(--error-container) 30%,transparent)}
+.bg-error-container\/40{background-color:color-mix(in srgb,var(--error-container) 40%,transparent)}
+.bg-error-container\/60{background-color:color-mix(in srgb,var(--error-container) 60%,transparent)}
+.bg-on-primary-container\/10{background-color:color-mix(in srgb,var(--on-primary-container) 10%,transparent)}
+.bg-outline-variant\/40{background-color:color-mix(in srgb,var(--outline-variant) 40%,transparent)}
+.bg-outline-variant\/60{background-color:color-mix(in srgb,var(--outline-variant) 60%,transparent)}
+.bg-secondary-container\/20{background-color:color-mix(in srgb,var(--secondary-container) 20%,transparent)}
+.bg-secondary-container\/40{background-color:color-mix(in srgb,var(--secondary-container) 40%,transparent)}
+.bg-surface-container-low\/30{background-color:color-mix(in srgb,var(--surface-container-low) 30%,transparent)}
+.bg-surface-container-low\/40,.hover\:bg-surface-container-low\/40:hover{background-color:color-mix(in srgb,var(--surface-container-low) 40%,transparent)}
+.bg-surface-container-low\/50{background-color:color-mix(in srgb,var(--surface-container-low) 50%,transparent)}
+.bg-surface-container-low\/70{background-color:color-mix(in srgb,var(--surface-container-low) 70%,transparent)}
+.bg-surface-container-lowest\/80{background-color:color-mix(in srgb,var(--surface-container-lowest) 80%,transparent)}
+.bg-surface-container-lowest\/90{background-color:color-mix(in srgb,var(--surface-container-lowest) 90%,transparent)}
+.fill-primary\/20{fill:color-mix(in srgb,var(--primary) 20%,transparent)}
+.text-on-surface-variant\/80{color:color-mix(in srgb,var(--on-surface-variant) 80%,transparent)}
+.from-primary{--tw-gradient-to:color-mix(in srgb,var(--primary) 0%,transparent)}
+.shadow-\[1px_0_0_0_rgba\(188\,201\,198\,0\.35\)\]{box-shadow:1px 0 0 0 color-mix(in srgb,var(--outline-variant) 60%,transparent)}
+.shadow-\[0_1px_8px_rgba\(0\,0\,0\,0\.04\)\]{box-shadow:0 1px 8px rgba(0,0,0,0.4)}
+.bg-\[repeating-linear-gradient\(45deg\,\#dce9ff_0\,\#dce9ff_1px\,transparent_0\,transparent_8px\)\]{background-image:repeating-linear-gradient(45deg,var(--surface-container-high) 0,var(--surface-container-high) 1px,transparent 0,transparent 8px)}
+}
+/* ---- keyboard focus: visible ring on every interactive element ---- */
+:focus-visible{outline:2px solid var(--primary)!important;outline-offset:2px}
+/* ---- reduced motion: no ping, no pose/colour transitions; replay still steps ---- */
+@media (prefers-reduced-motion: reduce){
+.animate-ping,#pose-pulse{animation:none!important}
+.pose-figure,.pose-limb,#pose-pulse,#pose-marker,#pose-vec,#pose-vec-dot,
+.transition-all,.transition-colors,.transition-transform{transition:none!important}
+.group:hover .group-hover\:translate-x-1,.group:hover .group-hover\:scale-105{transform:none}
+}
 </style>
 </head>
 <body class="bg-background font-body-md text-on-surface antialiased">
@@ -421,11 +583,11 @@ body:not(.tech) .tech-only{display:none!important}
 <span class="font-code-sm text-code-sm uppercase px-space-xs py-0.5 rounded border border-outline-variant text-on-surface-variant font-medium bg-surface-container-low">Research prototype</span>
 </div>
 <nav class="flex items-center gap-space-sm relative" id="tabs">
-<a class="tab px-space-md py-1.5 transition-colors rounded-lg" data-tab="problem" href="#">1 &middot; The problem</a>
+<a class="tab px-space-md py-1.5 transition-colors rounded-lg" data-tab="patients" href="#">1 &middot; Patients</a>
 <div class="w-8 h-px bg-outline-variant/60"></div>
-<a class="tab px-space-md py-1.5 transition-colors rounded-lg" data-tab="twin" href="#">2 &middot; The twin</a>
+<a class="tab px-space-md py-1.5 transition-colors rounded-lg" data-tab="twin" href="#">2 &middot; Virtual patient</a>
 <div class="w-8 h-px bg-outline-variant/60"></div>
-<a class="tab px-space-md py-1.5 transition-colors rounded-lg" data-tab="evidence" href="#">3 &middot; The evidence</a>
+<a class="tab px-space-md py-1.5 transition-colors rounded-lg" data-tab="evidence" href="#">3 &middot; Evidence</a>
 </nav>
 <div class="flex items-center gap-space-sm shrink-0">
 <div class="flex items-center gap-space-xs bg-surface-container-low p-0.5 rounded border border-outline-variant/50">
@@ -442,8 +604,327 @@ body:not(.tech) .tech-only{display:none!important}
 </header>
 <main class="w-full pt-[5.5rem] bg-background min-h-screen">
 
-<!-- ===================== SCREEN 1 — THE PROBLEM ===================== -->
-<section class="panel" id="panel-problem"><div class="flex flex-col w-full">
+<!-- ===================== SCREEN 1 — THE PROBLEM ===================== --><!-- ===================== SCREEN 1 — PATIENT PANEL ===================== -->
+<section class="panel" id="panel-patients"><div class="w-full max-w-[1440px] mx-auto px-gutter-desktop py-space-md flex flex-col gap-space-md">
+<div class="flex items-end justify-between flex-wrap gap-2">
+<div class="flex flex-col gap-0.5">
+<span class="eyebrow">Movement-disorders clinic &middot; remote monitoring</span>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Patient panel</h1>
+</div>
+<span class="chip" id="pp-count"></span>
+</div>
+<p class="note" id="pp-triage"></p>
+<div class="card overflow-x-auto">
+<table class="pp-table w-full text-left">
+<caption class="sr-only">Patients under monitoring. Activate a row to open that patient's virtual patient view.</caption>
+<thead><tr id="pp-head">
+<th scope="col" aria-sort="none"><button class="sort-btn" data-sort="subject" type="button">Patient<span class="sort-ind" aria-hidden="true"></span></button></th>
+<th scope="col" aria-sort="none"><button class="sort-btn" data-sort="age" type="button">Age / sex<span class="sort-ind" aria-hidden="true"></span></button></th>
+<th class="num" scope="col" aria-sort="none"><button class="sort-btn" data-sort="years" type="button">Years since diagnosis<span class="sort-ind" aria-hidden="true"></span></button></th>
+<th scope="col" aria-sort="none"><button class="sort-btn" data-sort="estimate" type="button">Estimated freezing burden<span class="sort-ind" aria-hidden="true"></span></button></th>
+<th class="num" scope="col" aria-sort="none"><button class="sort-btn" data-sort="observed" type="button">Observed rate (validation)<span class="sort-ind" aria-hidden="true"></span></button></th>
+<th class="num" scope="col" aria-sort="none"><button class="sort-btn" data-sort="nfogq" type="button">NFOGQ<span class="sort-ind" aria-hidden="true"></span></button></th>
+<th scope="col" aria-sort="none"><button class="sort-btn" data-sort="med" type="button">Medication at recording<span class="sort-ind" aria-hidden="true"></span></button></th>
+</tr></thead>
+<tbody id="pp-body"></tbody>
+</table>
+</div>
+<p class="caption">Estimated freezing burden is the twin's concurrent estimate from recorded movement (movement only); it is not a forecast. Observed rate is the held-out annotated freezing rate, shown for validation only &mdash; a clinic would not have it. Rows open with a click, Enter or Space; arrow keys move between rows.</p>
+</div></section>
+
+
+<!-- ===================== SCREEN 2 — THE VIRTUAL PATIENT ===================== -->
+<section class="panel hidden" id="panel-twin"><div class="w-full max-w-[1440px] mx-auto px-gutter-desktop py-space-md flex flex-col gap-space-md">
+<div class="flex items-center justify-between flex-wrap gap-2">
+<button class="btn" id="back-panel" type="button">&larr; Patient panel</button>
+<div class="flex items-center gap-2">
+<button class="btn" id="prev-pt" type="button" aria-label="Previous patient in panel order">&#9664; Previous</button>
+<span class="font-code-sm text-code-sm text-on-surface-variant" id="pt-pos"></span>
+<button class="btn" id="next-pt" type="button" aria-label="Next patient in panel order">Next &#9654;</button>
+</div>
+</div>
+
+<!-- BAND 1 — static stream -->
+<section class="band" aria-labelledby="b1-title">
+<div class="band-head">
+<div class="flex items-baseline gap-3 flex-wrap"><h2 class="band-title" id="b1-title">Clinical record &mdash; static stream</h2><span class="font-code-lg text-code-lg font-bold text-on-surface" id="head-subject" tabindex="-1"></span><span class="syn-badge hidden" id="syn-badge">Synthetic &mdash; demonstration only</span></div>
+<span class="eyebrow">Recorded at clinical visit &middot; visits are ordinal, interval not recorded</span>
+</div>
+<dl class="kv-grid" id="static-grid"></dl>
+</section>
+
+<!-- BAND 2 — dynamic stream -->
+<section class="band" aria-labelledby="b2-title">
+<div class="band-head"><h2 class="band-title" id="b2-title">Continuous monitoring &mdash; dynamic stream</h2><span class="eyebrow">Lower-back tri-axial accelerometry</span></div>
+<p class="note">Concurrent estimate of current freezing burden from this patient's recorded movement &mdash; not a forecast.</p>
+<div class="b2-grid">
+<div class="flex flex-col gap-1">
+<span class="eyebrow">Estimated freezing burden</span>
+<span class="big-num" id="burden-estimate"></span>
+<span class="font-code-sm text-code-sm text-on-surface" id="burden-rank"></span>
+<span class="font-code-sm text-code-sm text-on-surface-variant" id="burden-observed"></span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="eyebrow" id="strip-label">Position in cohort</span>
+<svg class="w-full" viewBox="0 0 900 64" id="burden-strip" role="img" aria-label="This patient's estimate among the cohort's estimates"></svg>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<span class="eyebrow" id="feature-title">Personal movement baseline</span>
+<div class="feat-grid" id="feature-grid"></div>
+</div>
+<details class="disclosure">
+<summary>Measured accelerometry excerpts</summary>
+<div class="flex flex-col gap-1 pt-space-sm">
+<div class="flex-1 flex items-center justify-center text-center px-space-sm" id="signal-empty">
+<p class="font-code-sm text-code-sm text-outline italic">signal traces not yet exported</p>
+</div>
+<div class="hidden" id="signal-traces"></div>
+<p class="font-body-sm text-[11px] text-on-surface-variant/80 mt-1" id="signal-caption">Raw 100 Hz waveforms are withheld until the signal snippets are exported with the model; nothing here is interpolated or drawn from a continuous stream.</p>
+</div>
+</details>
+</section>
+
+<!-- BAND 3 — adverse-event prediction (centrepiece) -->
+<section class="band band-hero" aria-labelledby="b3-title" id="band3">
+<div class="band-head">
+<h2 class="band-title band-title-lg" id="b3-title">Adverse-event prediction &mdash; freezing onset</h2>
+<span class="chip">Retrospective replay of stored model output</span>
+</div>
+<p class="caveat">Episode-level forecasting is weak at this cohort size; see the evidence view for measured performance.</p>
+<div class="b3-grid">
+<div class="pose-cell">
+<div class="w-full flex items-center justify-between gap-1 flex-wrap">
+<span class="eyebrow">Schematic state</span>
+<span class="font-code-sm text-code-sm font-bold uppercase px-2 py-0.5 rounded bg-surface-container text-on-surface-variant" id="pose-risk"></span>
+</div>
+<div class="relative flex items-center justify-center my-3">
+<svg class="pose-figure text-on-surface-variant" fill="none" height="210" id="pose-figure" viewBox="0 0 160 220" width="150">
+<circle class="pose-limb stroke-outline fill-surface-container" cx="80" cy="24" r="14" stroke-width="2"></circle>
+<path class="pose-limb stroke-outline fill-surface-container" d="M74 38 L86 38 L94 88 L66 88 Z" stroke-width="2"></path>
+<path class="pose-limb stroke-outline fill-surface-container" d="M66 88 L94 88 L90 115 L70 115 Z" stroke-width="2"></path>
+<path class="pose-limb stroke-outline fill-none" d="M72 115 L68 160 L62 205 L52 208" stroke-linecap="round" stroke-width="3"></path>
+<path class="pose-limb stroke-outline fill-none" d="M88 115 L94 158 L98 200 L110 202" stroke-linecap="round" stroke-width="3"></path>
+<path class="pose-limb stroke-outline fill-none" d="M66 48 L46 85 L42 120" stroke-linecap="round" stroke-width="2.5"></path>
+<path class="pose-limb stroke-outline fill-none" d="M94 48 L114 85 L118 120" stroke-linecap="round" stroke-width="2.5"></path>
+<g class="transition-all cursor-pointer" id="pose-sensor">
+<circle class="fill-primary/20 animate-ping" cx="80" cy="100" id="pose-pulse" r="12"></circle>
+<rect class="fill-primary stroke-surface-container-lowest" height="12" id="pose-marker" rx="2" stroke-width="1.5" width="12" x="74" y="94"></rect>
+<line class="text-primary" id="pose-vec" stroke="currentColor" stroke-dasharray="1 2" stroke-width="2" x1="80" x2="104" y1="100" y2="92"></line>
+<circle class="fill-primary" cx="104" cy="92" id="pose-vec-dot" r="2.5"></circle>
+</g>
+</svg>
+</div>
+<span class="font-code-sm text-code-sm font-semibold px-2 py-0.5 rounded bg-surface-container text-outline" id="pose-eta"></span>
+<p class="caption text-center">Pose and pulse track the stored risk at the playhead, not reconstructed limb motion &mdash; one lower-back sensor cannot recover joint kinematics.</p>
+</div>
+<div class="flex flex-col gap-space-sm min-w-0">
+<div class="readouts" aria-live="polite">
+<div class="readout"><span class="eyebrow">Stored risk at playhead</span><span class="readout-value" id="risk-readout"></span></div>
+<div class="readout"><span class="eyebrow">Alarm state</span><span class="alarm-chip" id="alarm-chip"></span></div>
+<div class="readout"><span class="eyebrow">Lead time to next labelled onset</span><span class="readout-value" id="lead-readout"></span></div>
+<div class="readout"><span class="eyebrow">Recording clock</span><span class="readout-sub" id="clock-readout"></span></div>
+</div>
+<svg class="w-full tl-detail" viewBox="0 0 1000 210" id="tl-detail" role="img" aria-label="Risk timeline around the playhead"></svg>
+<svg class="w-full tl-overview" viewBox="0 0 1000 34" id="tl-overview" role="img" aria-label="Whole recording: monitored segments, labelled onsets and playhead"></svg>
+<label class="sr-only" for="scrub">Playhead position</label>
+<input class="range" type="range" id="scrub" min="0" max="1000" step="1" value="0">
+<div class="flex items-center justify-between flex-wrap gap-2">
+<div class="flex items-center gap-1 flex-wrap" id="replay-transport" role="group" aria-label="Replay controls (Space toggles play/pause)">
+<button class="btn btn-primary" id="replay-play" type="button">&#9654; Play</button>
+<button class="btn" id="replay-pause" type="button">&#10074;&#10074; Pause</button>
+<button class="btn" id="replay-reset" type="button">&#8634; Reset</button>
+<button class="btn" id="step-back" type="button" aria-label="Previous window">&#9664;|</button>
+<button class="btn" id="step-fwd" type="button" aria-label="Next window">|&#9654;</button>
+<button class="btn" id="onset-prev" type="button">&#9664; Previous onset</button>
+<button class="btn" id="onset-next" type="button">Next onset &#9654;</button>
+</div>
+<div class="flex items-center gap-1" role="group" aria-label="Playback speed">
+<span class="eyebrow">Speed</span>
+<button class="btn" data-speed="0.5" type="button">0.5&times;</button>
+<button class="btn" data-speed="1" type="button">1&times;</button>
+<button class="btn" data-speed="2" type="button">2&times;</button>
+</div>
+</div>
+<div class="controls-grid">
+<div class="control">
+<label class="eyebrow" for="horizon-input" id="horizon-label"></label>
+<input class="range" type="range" id="horizon-input" min="0" max="7" step="1" list="horizon-ticks">
+<datalist id="horizon-ticks"></datalist>
+<div class="font-code-sm text-code-sm text-on-surface" id="horizon-auprc"></div>
+<svg class="w-full" viewBox="0 0 560 30" id="horizon-bars" role="img" aria-label="Measured AUPRC against the prevalence floor at this horizon"></svg>
+<p class="caption" id="horizon-note"></p>
+</div>
+<div class="control">
+<label class="eyebrow" for="thr-input" id="thr-label"></label>
+<input class="range" type="range" id="thr-input" min="0" max="1" step="0.001">
+<p class="caption">Alarm rule &mdash; changes when an alarm fires, not the model's risk estimate.</p>
+<button class="btn self-start" id="thr-reset" type="button"></button>
+</div>
+</div>
+<p class="caption" id="tl-legend"></p>
+</div>
+</div>
+</section>
+
+<!-- BAND 4 — clinician actions (conceptual) -->
+<section class="band band-conceptual" aria-labelledby="b4-title">
+<div class="band-head"><h2 class="band-title" id="b4-title">What the clinician does next</h2><span class="concept-badge">Conceptual &mdash; not implemented</span></div>
+<p class="note">These are workflow affordances only. They are disabled, produce no result and store nothing.</p>
+<div class="concept-grid">
+<div class="concept-item"><button class="btn" type="button" disabled>Adjust monitoring period</button><span class="caption">Would schedule another home-recording week.</span></div>
+<div class="concept-item"><button class="btn" type="button" disabled>Flag for review</button><span class="caption">Would add this patient to the next specialist review list.</span></div>
+<div class="concept-item"><label class="caption" for="concept-note">Add a clinical note</label><textarea class="concept-note" id="concept-note" rows="2" disabled placeholder="Not implemented &mdash; nothing is saved"></textarea></div>
+<div class="concept-item"><button class="btn" type="button" disabled>Refer to physiotherapy / cueing</button><span class="caption">Would start a referral for gait training or external cueing.</span></div>
+</div>
+</section>
+</div></section>
+
+<!-- ===================== SCREEN 3 — THE EVIDENCE ===================== -->
+<section class="panel hidden" id="panel-evidence"><div class="flex flex-col w-full">
+<div class="w-full max-w-[1440px] mx-auto px-gutter-desktop py-space-md flex flex-col gap-space-lg">
+<div class="w-full bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex items-start gap-space-md border-l-4 border-l-primary">
+<div class="mt-0.5 text-primary"><svg class="icon text-[20px]" aria-hidden="true" focusable="false"><use href="#ic-analytics"/></svg></div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="font-headline-sm text-headline-sm text-primary uppercase tracking-wider font-semibold">Primary result &mdash; burden estimation</span>
+<span class="font-code-sm text-code-sm uppercase px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant font-medium" id="val-method"></span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed mt-1" id="scope-note"></p>
+</div>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md w-full" id="stat-tiles"></div>
+
+<div class="bg-surface-container-lowest p-space-lg rounded-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-space-sm gap-2">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Validation analysis 01</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Burden estimation: twin kinematic output vs. self-reported NFOGQ</h2>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="font-code-sm text-code-sm text-on-surface-variant" id="sel-note"></span>
+<span class="font-code-sm text-code-sm text-on-surface-variant bg-surface-container-low px-2 py-1 rounded" id="val-n"></span>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg pt-space-xs">
+<div class="bg-surface-container-lowest p-space-md rounded-lg flex flex-col gap-1.5">
+<div class="flex items-center justify-between flex-wrap gap-2 font-code-sm text-code-sm">
+<span class="font-semibold text-primary" id="burden-rho"></span>
+<label class="flex items-center gap-1 cursor-pointer text-on-surface-variant"><input class="accent-primary" type="checkbox" id="lev-toggle">Exclude highest-burden patient</label>
+</div>
+<div class="font-code-sm text-code-sm text-on-surface-variant" id="burden-r"></div>
+<div class="relative w-full bg-surface-container-low rounded p-1">
+<svg class="w-full" viewBox="0 0 500 230" id="burden-scatter" role="img" aria-label="Scatter of twin burden estimate against held-out observed FoG rate"></svg>
+</div>
+<p class="font-body-sm text-[11px] text-on-surface-variant leading-tight" id="burden-scatter-caption"></p>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-lg flex flex-col">
+<div class="flex items-center justify-between mb-space-sm flex-wrap gap-1">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold" id="sc2-stats"></span>
+<span class="font-code-sm text-code-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">Questionnaire (NFOGQ)</span>
+</div>
+<div class="relative w-full h-64 bg-surface-container-low/40 rounded p-space-sm overflow-hidden"><svg class="w-full h-full" fill="none" preserveAspectRatio="none" viewBox="0 0 500 220" id="sc2"></svg></div>
+<div class="flex items-center justify-between mt-space-xs text-outline"><span class="font-code-sm text-code-sm">y-axis: observed FoG rate</span><span class="font-label-sm text-label-sm font-semibold text-on-surface">x-axis: NFOGQ score</span></div>
+</div>
+</div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg w-full">
+<div class="bg-surface-container-lowest p-space-lg rounded-lg shadow-sm flex flex-col justify-between">
+<div class="flex flex-col mb-space-sm">
+<div class="flex items-center justify-between flex-wrap gap-2">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Horizon sensitivity</span>
+<div class="flex items-center gap-space-sm text-code-sm">
+<span class="flex items-center gap-1 text-on-surface"><span class="w-2.5 h-0.5 bg-chart-a"></span>Model A</span>
+<span class="flex items-center gap-1 text-on-surface"><span class="w-2.5 h-0.5 bg-chart-b"></span>Model B</span>
+<span class="flex items-center gap-1 text-on-surface"><span class="w-2.5 h-0.5 bg-primary"></span>Model C (submitted)</span>
+<span class="flex items-center gap-1 text-on-surface"><span class="w-2.5 h-0.5 bg-on-surface-variant"></span>prevalence (chance level)</span>
+</div>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Forecasting degrades with lead time</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Area Under Precision-Recall Curve (AUPRC) across lookahead warning horizons. No arm separates from accelerometer-only.</p>
+</div>
+<div class="relative w-full h-72 bg-surface-container-low/30 rounded p-space-sm flex flex-col justify-end"><svg class="w-full h-full" fill="none" preserveAspectRatio="none" viewBox="0 0 500 240" id="horizon"></svg></div>
+<div class="flex items-center justify-between mt-space-xs text-outline"><span class="font-code-sm text-code-sm">y-axis: AUPRC</span><span class="font-label-sm text-label-sm font-semibold text-on-surface">x-axis: warning horizon (s)</span></div>
+</div>
+
+<div class="bg-surface-container-lowest p-space-lg rounded-lg shadow-sm flex flex-col justify-between">
+<div class="flex flex-col mb-space-sm">
+<div class="flex items-center justify-between flex-wrap gap-2">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Heterogeneity audit</span>
+<span class="font-code-sm text-code-sm text-error bg-error-container/30 text-on-error-container px-2 py-0.5 rounded font-semibold" id="het-chip"></span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">The model does not transfer uniformly across patients</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1" id="het-note"></p>
+</div>
+<div class="relative w-full h-64 bg-surface-container-low/30 rounded p-space-sm flex flex-col justify-end"><div class="w-full h-44 flex items-end gap-1 px-1" id="het-bars"></div></div>
+<div class="flex items-center justify-between pt-space-sm border-t border-outline-variant/20 mt-space-sm flex-wrap gap-2">
+<div class="flex items-center gap-space-sm text-code-sm">
+<span class="flex items-center gap-1 text-on-surface"><span class="w-2 h-2 bg-error rounded-sm"></span>below 2&times; own event rate</span>
+<span class="flex items-center gap-1 text-on-surface"><span class="w-2 h-2 bg-primary rounded-sm"></span>at or above</span>
+</div>
+<span class="font-code-sm text-code-sm text-outline" id="het-range"></span>
+</div>
+</div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg w-full mb-space-sm">
+<div class="bg-surface-container-lowest p-space-lg rounded-lg shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Negative &amp; inconclusive findings</span>
+<span class="font-code-sm text-code-sm px-2 py-0.5 rounded bg-error-container text-on-error-container font-semibold">4 / 4 null</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-space-sm">No arm separates from accelerometer-only</h3>
+<div class="w-full overflow-x-auto">
+<table class="w-full text-left">
+<thead><tr class="bg-surface-container-low text-outline font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-2 px-space-sm font-semibold">Mechanism</th><th class="py-2 px-space-sm text-right font-semibold">Mean change</th><th class="py-2 px-space-sm text-right font-semibold">Wins</th><th class="py-2 px-space-sm text-right font-semibold">Finding</th>
+</tr></thead>
+<tbody class="divide-y divide-surface-container" id="nulls-body"></tbody>
+</table>
+</div>
+</div>
+<p class="pt-space-md font-body-sm text-body-sm italic text-on-surface-variant">We report all four. Personalisation did not improve forecasting at this cohort size.</p>
+</div>
+
+<div class="bg-surface-container-lowest p-space-lg rounded-lg shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Alarm saturation</span>
+<span class="font-code-sm text-code-sm text-outline bg-surface-container px-2 py-0.5 rounded">Operating points</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-space-sm">Cueing burden</h3>
+<div class="w-full overflow-x-auto">
+<table class="w-full text-left">
+<thead><tr class="bg-surface-container-low text-outline font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-2 px-space-sm font-semibold">Recall target</th><th class="py-2 px-space-sm text-right font-semibold">Precision</th><th class="py-2 px-space-sm text-right font-semibold">% of monitored time alarming</th>
+</tr></thead>
+<tbody class="divide-y divide-surface-container" id="ops-body"></tbody>
+</table>
+</div>
+</div>
+<p class="pt-space-md font-body-sm text-body-sm italic text-on-surface-variant">Evaluated on FoG-provoking protocol segments, not free-living monitoring.</p>
+<p class="pt-space-xs font-body-sm text-body-sm text-on-surface-variant" id="alarm-limit"><b class="text-on-surface">Known limitation.</b> Alarm-episode rates are not reported. Windows overlap (4 s at a 0.5 s stride), so consecutive threshold crossings are not independent alarms, and the rule that grouped crossings into episodes cannot be reproduced because the producing notebook was lost. The percentage of monitored time in an alarm state is reported instead.</p>
+</div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg w-full mb-space-sm">
+<div class="bg-surface-container-lowest p-space-lg rounded-lg shadow-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Cohort &amp; method</span>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-space-sm">Scope of this analysis</h3>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-space-sm" id="meta-grid"></div>
+</div>
+<div class="bg-surface-container-lowest p-space-lg rounded-lg shadow-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Features</span>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-space-sm">Movement feature set</h3>
+<div class="flex flex-wrap gap-1" id="feature-list"></div>
+</div>
+</div>
+
+<details class="disclosure card">
+<summary>Clinical background &mdash; what freezing of gait is and why passive monitoring</summary>
 <div class="w-full max-w-[1100px] mx-auto px-gutter-desktop py-space-xl flex flex-col gap-space-xl">
 <section class="flex flex-wrap items-center justify-between gap-space-sm pb-space-xs border-b border-outline-variant/30 text-on-surface-variant">
 <div class="flex items-center gap-space-sm font-code-sm text-code-sm flex-wrap">
@@ -492,8 +973,8 @@ body:not(.tech) .tech-only{display:none!important}
 <line x1="22" x2="4" y1="78" y2="112"></line>
 <line stroke-opacity="0.35" x1="4" x2="-8" y1="112" y2="152"></line>
 <line stroke-opacity="0.35" stroke-width="2.5" x1="-8" x2="2" y1="152" y2="156"></line>
-<path d="M 46 168 L 58 168" stroke="#00685f" stroke-opacity="0.7" stroke-width="1.5"></path>
-<polygon fill="#00685f" points="58,166 63,168 58,170" stroke="none"></polygon>
+<path style="stroke:var(--primary)" d="M 46 168 L 58 168" stroke-opacity="0.7" stroke-width="1.5"></path>
+<polygon style="fill:var(--primary)" points="58,166 63,168 58,170" stroke="none"></polygon>
 </g>
 <g stroke-opacity="0.75" stroke-width="2.2" transform="translate(205, 20)">
 <circle cx="20" cy="18" r="9"></circle>
@@ -508,31 +989,31 @@ body:not(.tech) .tech-only{display:none!important}
 <line x1="21" x2="28" y1="78" y2="115"></line>
 <line x1="28" x2="27" y1="115" y2="158"></line>
 <line stroke-width="2.8" x1="27" x2="36" y1="158" y2="158"></line>
-<path d="M 8 162 Q 10 160 12 162 T 16 162" fill="none" stroke="#ba1a1a" stroke-opacity="0.8" stroke-width="1"></path>
-<path d="M 24 162 Q 26 160 28 162 T 32 162" fill="none" stroke="#ba1a1a" stroke-opacity="0.8" stroke-width="1"></path>
+<path style="stroke:var(--error)" d="M 8 162 Q 10 160 12 162 T 16 162" fill="none" stroke-opacity="0.8" stroke-width="1"></path>
+<path style="stroke:var(--error)" d="M 24 162 Q 26 160 28 162 T 32 162" fill="none" stroke-opacity="0.8" stroke-width="1"></path>
 </g>
 <g stroke-opacity="0.95" stroke-width="2.2" transform="translate(345, 20)">
 <circle cx="20" cy="19" r="9"></circle>
-<line stroke="#0b1c30" stroke-width="2.5" x1="20" x2="20" y1="28" y2="79"></line>
-<line stroke="#0b1c30" x1="20" x2="12" y1="37" y2="60"></line>
-<line stroke="#0b1c30" x1="12" x2="14" y1="60" y2="82"></line>
-<line stroke="#0b1c30" x1="20" x2="28" y1="37" y2="60"></line>
-<line stroke="#0b1c30" x1="28" x2="26" y1="60" y2="82"></line>
-<line stroke="#0b1c30" stroke-width="2.5" x1="20" x2="17" y1="79" y2="118"></line>
-<line stroke="#0b1c30" stroke-width="2.5" x1="17" x2="17" y1="118" y2="158"></line>
-<line stroke="#0b1c30" stroke-width="3" x1="17" x2="25" y1="158" y2="158"></line>
-<line stroke="#0b1c30" stroke-width="2.5" x1="20" x2="23" y1="79" y2="118"></line>
-<line stroke="#0b1c30" stroke-width="2.5" x1="23" x2="23" y1="118" y2="158"></line>
-<line stroke="#0b1c30" stroke-width="3" x1="23" x2="31" y1="158" y2="158"></line>
-<line stroke="#ba1a1a" stroke-width="1.8" x1="12" x2="36" y1="160" y2="160"></line>
-<rect fill="#00685f" height="13" rx="1.5" stroke="#89f5e7" stroke-width="1.5" width="10" x="15" y="65"></rect>
-<circle cx="20" cy="71.5" r="9" stroke="#008378" stroke-dasharray="2 2" stroke-opacity="0.8" stroke-width="1"></circle>
-<path d="M 26 71.5 L 56 62" stroke="#00685f" stroke-width="1"></path>
-<text fill="#00685f" font-family='ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace' font-size="9" font-weight="600" stroke="none" x="60" y="65">IMU: L4/L5</text>
+<line style="stroke:var(--on-surface)" stroke-width="2.5" x1="20" x2="20" y1="28" y2="79"></line>
+<line style="stroke:var(--on-surface)" x1="20" x2="12" y1="37" y2="60"></line>
+<line style="stroke:var(--on-surface)" x1="12" x2="14" y1="60" y2="82"></line>
+<line style="stroke:var(--on-surface)" x1="20" x2="28" y1="37" y2="60"></line>
+<line style="stroke:var(--on-surface)" x1="28" x2="26" y1="60" y2="82"></line>
+<line style="stroke:var(--on-surface)" stroke-width="2.5" x1="20" x2="17" y1="79" y2="118"></line>
+<line style="stroke:var(--on-surface)" stroke-width="2.5" x1="17" x2="17" y1="118" y2="158"></line>
+<line style="stroke:var(--on-surface)" stroke-width="3" x1="17" x2="25" y1="158" y2="158"></line>
+<line style="stroke:var(--on-surface)" stroke-width="2.5" x1="20" x2="23" y1="79" y2="118"></line>
+<line style="stroke:var(--on-surface)" stroke-width="2.5" x1="23" x2="23" y1="118" y2="158"></line>
+<line style="stroke:var(--on-surface)" stroke-width="3" x1="23" x2="31" y1="158" y2="158"></line>
+<line style="stroke:var(--error)" stroke-width="1.8" x1="12" x2="36" y1="160" y2="160"></line>
+<rect style="fill:var(--primary);stroke:var(--primary-fixed)" height="13" rx="1.5" stroke-width="1.5" width="10" x="15" y="65"></rect>
+<circle style="stroke:var(--primary-container)" cx="20" cy="71.5" r="9" stroke-dasharray="2 2" stroke-opacity="0.8" stroke-width="1"></circle>
+<path style="stroke:var(--primary)" d="M 26 71.5 L 56 62" stroke-width="1"></path>
+<text style="fill:var(--primary)" font-family='ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace' font-size="9" font-weight="600" stroke="none" x="60" y="65">IMU: L4/L5</text>
 </g>
 <text fill="currentColor" fill-opacity="0.6" font-family='ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif' font-size="11" font-weight="500" stroke="none" text-anchor="middle" x="85" y="202">walking</text>
 <text fill="currentColor" fill-opacity="0.7" font-family='ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif' font-size="11" font-weight="500" stroke="none" text-anchor="middle" x="225" y="202">hesitation</text>
-<text fill="#ba1a1a" font-family='ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif' font-size="11" font-weight="600" stroke="none" text-anchor="middle" x="365" y="202">freeze</text>
+<text style="fill:var(--error)" font-family='ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif' font-size="11" font-weight="600" stroke="none" text-anchor="middle" x="365" y="202">freeze</text>
 </svg>
 </div>
 <div class="mt-space-sm pt-space-xs border-t border-outline-variant/30 flex items-center justify-between text-on-surface-variant font-code-sm text-code-sm">
@@ -628,351 +1109,8 @@ Transient triggers (turns, doorways, dual-tasking, fatigue) rarely manifest in a
 <p class="font-body-sm text-body-sm text-on-surface-variant italic px-space-xs">So what: a passive wearable estimate tracked observed freezing in this cohort; the questionnaire alone did not reach significance.</p>
 </section>
 
-<section class="mt-space-md">
-<a class="w-full bg-primary-container hover:bg-primary transition-all text-on-primary-container p-space-lg rounded-lg flex items-center justify-between shadow-sm group cursor-pointer" data-tab="twin" href="#">
-<div class="flex items-center gap-space-md">
-<div class="w-9 h-9 rounded bg-on-primary-container/10 flex items-center justify-center text-on-primary-container group-hover:scale-105 transition-transform"><svg class="icon text-[20px]" aria-hidden="true" focusable="false"><use href="#ic-timeline"/></svg></div>
-<div>
-<span class="block font-headline-sm text-headline-sm font-semibold text-on-primary-container tracking-tight">Continue &mdash; see the twin for one patient</span>
-<span class="block font-code-sm text-code-sm opacity-90 text-on-primary-container" id="next-patient-line"></span>
-</div>
-</div>
-<svg class="icon text-[24px] text-on-primary-container transform group-hover:translate-x-1 transition-transform" aria-hidden="true" focusable="false"><use href="#ic-arrow_forward"/></svg>
-</a>
-</section>
-</div></div></section>
 
-<!-- ===================== SCREEN 2 — THE TWIN ===================== -->
-<section class="panel hidden" id="panel-twin"><div class="flex flex-col w-full">
-<div class="w-full max-w-[1440px] mx-auto flex flex-col lg:flex-row items-start min-h-[calc(100vh-140px)]">
-<aside class="w-full lg:w-[270px] shrink-0 bg-surface-container-lowest p-space-md flex flex-col justify-between self-stretch shadow-[1px_0_0_0_rgba(188,201,198,0.35)]">
-<div class="flex flex-col gap-space-sm">
-<div class="space-y-1 pb-space-xs">
-<div class="relative w-full">
-<select id="sort" class="w-full bg-surface-container-low text-on-surface font-label-md text-label-md px-space-sm py-1.5 rounded appearance-none cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary shadow-xs">
-<option value="estimate">Sort: estimated burden</option>
-<option value="subject">Sort: participant ID</option>
-<option value="rate">Sort: observed rate</option>
-<option value="auprc">Sort: AUPRC</option>
-</select>
-<svg class="icon absolute right-2 top-2 text-[16px] text-on-surface-variant pointer-events-none" aria-hidden="true" focusable="false"><use href="#ic-unfold_more"/></svg>
-</div>
-<p class="font-code-sm text-code-sm text-on-surface-variant/80 pl-0.5" id="list-note"></p>
-</div>
-<div class="flex flex-col gap-1 overflow-y-auto max-h-[calc(100vh-320px)] pr-0.5" id="patient-list"></div>
-</div>
-<div class="pt-space-sm mt-space-md border-t border-outline-variant/30">
-<div class="patient-row cursor-pointer flex flex-col gap-1 p-2 rounded bg-surface-container-low hover:bg-surface-container transition-colors hidden" id="synthetic-row"></div>
-</div>
-</aside>
-<div class="flex-1 min-w-0 p-space-lg lg:p-space-xl flex flex-col gap-space-lg w-full">
-<div class="w-full bg-surface-container-lowest px-space-lg py-2.5 rounded shadow-xs flex flex-wrap items-center justify-between gap-y-3 gap-x-4">
-<div class="flex items-center gap-space-md flex-wrap">
-<span class="font-code-lg text-code-lg font-bold text-on-surface tracking-tight" id="head-subject"></span>
-<div class="w-1 h-3.5 bg-outline-variant/40 rounded-full"></div>
-<span class="font-body-md text-body-md text-on-surface-variant" id="head-demo"></span>
-</div>
-<div class="flex items-center gap-space-md flex-wrap">
-<span class="font-code-sm text-code-sm font-semibold uppercase px-2.5 py-0.5 rounded bg-secondary-container/40 text-on-secondary-container" id="head-med"></span>
-<div class="flex items-center gap-space-md text-on-surface-variant font-code-sm text-code-sm" id="head-clinical"></div>
-</div>
-</div>
-
-<div class="w-full bg-surface-container-lowest rounded shadow-xs overflow-hidden flex flex-col">
-<div class="h-1 bg-primary w-full"></div>
-<div class="p-space-lg lg:p-space-xl flex flex-col gap-space-md">
-<div class="flex flex-col gap-0.5">
-<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight">Freezing burden</h2>
-<p class="font-body-sm text-body-sm italic text-on-surface-variant">Concurrent estimate for this visit &mdash; not a forecast of future burden.</p>
-</div>
-<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-center py-space-sm">
-<div class="xl:col-span-4 flex items-baseline gap-space-lg flex-wrap sm:flex-nowrap">
-<div class="flex flex-col"><span class="font-code-lg text-3xl lg:text-4xl font-bold text-on-surface tracking-tight" id="burden-estimate"></span><span class="font-label-sm text-label-sm uppercase text-on-surface-variant mt-1">model estimate (movement only)</span></div>
-<div class="flex flex-col pl-space-md border-l border-outline-variant/30"><span class="font-code-lg text-2xl font-semibold text-outline tracking-tight" id="burden-observed"></span><span class="font-label-sm text-label-sm uppercase text-on-surface-variant mt-1">held-out observed rate</span></div>
-</div>
-<div class="xl:col-span-6 flex flex-col gap-1.5 px-space-xs">
-<div class="flex items-center justify-between font-code-sm text-code-sm text-outline">
-<span id="dist-min"></span>
-<span class="font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant" id="dist-label"></span>
-<span id="dist-max"></span>
-</div>
-<div class="relative w-full h-11 bg-surface-container-low rounded flex items-center px-4 overflow-visible">
-<svg class="w-full h-8 overflow-visible" preserveAspectRatio="none" viewBox="0 0 500 40" id="burden-dist"></svg>
-</div>
-</div>
-<div class="xl:col-span-2 flex flex-col justify-center xl:items-end">
-<span class="font-code-lg text-xl font-medium text-outline" id="burden-nfogq"></span>
-<span class="font-label-sm text-label-sm uppercase text-on-surface-variant">questionnaire says</span>
-</div>
-</div>
-<div class="bg-surface-container-low/70 rounded p-space-sm font-body-sm text-body-sm text-on-surface-variant flex flex-col gap-1 border-l-2 border-outline-variant" id="burden-constraints"></div>
-</div>
-</div>
-
-<div class="w-full bg-surface-container-lowest rounded shadow-xs p-space-lg lg:p-space-xl flex flex-col gap-space-md">
-<div class="flex items-center justify-between pb-space-xs flex-wrap gap-2">
-<div class="flex items-center gap-space-sm">
-<svg class="icon text-primary text-[20px]" aria-hidden="true" focusable="false"><use href="#ic-view_in_ar"/></svg>
-<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight">Kinematic digital twin state</h2>
-</div>
-<span class="font-code-sm text-code-sm uppercase px-2 py-0.5 rounded bg-surface-container text-on-surface-variant" id="twin-cadence"></span>
-</div>
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-stretch">
-<div class="lg:col-span-5 bg-surface-container-low/50 rounded p-space-md flex flex-col justify-between items-center relative min-h-[320px]">
-<div class="w-full flex items-center justify-between">
-<span class="font-label-sm text-label-sm uppercase text-on-surface-variant">Schematic gait pose</span>
-<span class="flex items-center gap-1">
-<span class="font-code-sm text-code-sm font-semibold px-2 py-0.5 rounded bg-surface-container text-outline" id="pose-eta"></span>
-<span class="font-code-sm text-code-sm font-bold uppercase px-2 py-0.5 rounded bg-surface-container text-on-surface-variant" id="pose-risk"></span>
-</span>
-</div>
-<div class="my-3 relative flex items-center justify-center">
-<svg class="pose-figure text-on-surface-variant" fill="none" height="210" id="pose-figure" viewBox="0 0 160 220" width="150">
-<circle class="pose-limb stroke-outline fill-surface-container" cx="80" cy="24" r="14" stroke-width="2"></circle>
-<path class="pose-limb stroke-outline fill-surface-container" d="M74 38 L86 38 L94 88 L66 88 Z" stroke-width="2"></path>
-<path class="pose-limb stroke-outline fill-surface-container" d="M66 88 L94 88 L90 115 L70 115 Z" stroke-width="2"></path>
-<path class="pose-limb stroke-outline fill-none" d="M72 115 L68 160 L62 205 L52 208" stroke-linecap="round" stroke-width="3"></path>
-<path class="pose-limb stroke-outline fill-none" d="M88 115 L94 158 L98 200 L110 202" stroke-linecap="round" stroke-width="3"></path>
-<path class="pose-limb stroke-outline fill-none" d="M66 48 L46 85 L42 120" stroke-linecap="round" stroke-width="2.5"></path>
-<path class="pose-limb stroke-outline fill-none" d="M94 48 L114 85 L118 120" stroke-linecap="round" stroke-width="2.5"></path>
-<g class="transition-all cursor-pointer" id="pose-sensor">
-<circle class="fill-primary/20 animate-ping" cx="80" cy="100" id="pose-pulse" r="12"></circle>
-<rect class="fill-primary stroke-surface-container-lowest" height="12" id="pose-marker" rx="2" stroke-width="1.5" width="12" x="74" y="94"></rect>
-<line class="text-primary" id="pose-vec" stroke="currentColor" stroke-dasharray="1 2" stroke-width="2" x1="80" x2="104" y1="100" y2="92"></line>
-<circle class="fill-primary" cx="104" cy="92" id="pose-vec-dot" r="2.5"></circle>
-</g>
-</svg>
-<div class="absolute right-3 top-20 bg-surface-container-lowest/90 px-1.5 py-1 rounded shadow-xs font-code-sm text-[10px] text-on-surface-variant leading-tight">
-<span class="text-primary font-bold">L4 sensor</span><br>tri-axial IMU<br><span id="pose-fs"></span>
-</div>
-</div>
-<p class="font-body-sm text-[11px] text-on-surface-variant/80 text-center leading-tight">Schematic state indicator. Pose and pulse track the model's risk output, not reconstructed limb motion — a single lower-back IMU cannot recover joint kinematics.</p>
-</div>
-<div class="lg:col-span-5 flex flex-col justify-between bg-surface-container-low/40 rounded p-space-md">
-<div class="flex items-center justify-between mb-1">
-<span class="font-label-sm text-label-sm uppercase text-on-surface-variant font-semibold">Tri-axial accelerometry</span>
-<span class="font-code-sm text-code-sm text-outline">Lower back, tri-axial</span>
-</div>
-<div class="flex-1 flex items-center justify-center text-center px-space-sm" id="signal-empty">
-<p class="font-code-sm text-code-sm text-outline italic">signal traces not yet exported</p>
-</div>
-<div class="hidden" id="signal-traces"></div>
-<p class="font-body-sm text-[11px] text-on-surface-variant/80 mt-1" id="signal-caption">Raw 100 Hz waveforms are withheld until the signal snippets are exported with the model; nothing here is interpolated or drawn from a continuous stream.</p>
-</div>
-<div class="lg:col-span-2 bg-surface-container-low/50 rounded p-space-md flex flex-col justify-between items-center">
-<div class="text-center w-full">
-<span class="font-label-sm text-label-sm uppercase text-on-surface-variant font-semibold block">fog ratio</span>
-<span class="font-code-lg text-2xl font-bold text-on-surface mt-0.5 block" id="pose-fogr"></span>
-</div>
-<div class="w-9 h-40 bg-surface-container rounded-full relative flex flex-col justify-end p-1 overflow-hidden">
-<div class="absolute bottom-[50%] left-0 right-0 h-0.5 bg-outline-variant z-10"></div>
-<div class="w-full rounded-full bg-gradient-to-t from-primary via-tertiary-fixed-dim to-error" id="pose-meter"></div>
-</div>
-<div class="text-center font-body-sm text-[11px] text-on-surface-variant/80 leading-tight">fog / locomotion spectral ratio (personal baseline)</div>
-</div>
-</div>
-</div>
-
-<div class="w-full bg-surface-container-lowest rounded shadow-xs p-space-lg lg:p-space-xl flex flex-col gap-space-md">
-<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-space-xs">
-<div>
-<div class="flex items-center gap-space-sm">
-<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight">Short-horizon risk</h2>
-<span class="font-code-sm text-code-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant uppercase font-medium">Secondary result</span>
-</div>
-<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5" id="risk-note"></p>
-</div>
-<div class="flex items-center gap-space-md bg-error-container/40 px-space-md py-1.5 rounded">
-<span class="font-code-lg text-3xl font-bold text-on-error-container" id="risk-readout"></span>
-<div class="flex flex-col">
-<span class="font-code-sm text-code-sm font-bold bg-error text-on-error px-2 py-0.5 rounded uppercase leading-none tracking-wider text-center" id="alarm-chip"></span>
-<span class="font-code-sm text-code-sm font-medium text-error mt-0.5" id="risk-eta"></span>
-</div>
-</div>
-</div>
-<div class="w-full bg-surface-container-low/40 rounded p-space-md flex flex-col gap-1">
-<div class="relative w-full h-44 overflow-visible">
-<svg class="w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 700 160" id="risk-chart"></svg>
-<div class="absolute right-2 top-2 font-code-sm text-code-sm font-bold text-error bg-error-container/60 px-1 rounded">FREEZE (t = 0)</div>
-<div class="absolute left-2 top-[34%] font-code-sm text-code-sm text-error bg-surface-container-lowest/80 px-1 rounded" id="thr-label"></div>
-</div>
-<div class="flex items-center justify-between w-full font-code-sm text-code-sm text-on-surface-variant pt-1 border-t border-outline-variant/30" id="risk-axis"></div>
-<div class="text-center font-label-sm text-label-sm uppercase tracking-wider text-outline" id="replay-xlabel">seconds until freeze</div>
-</div>
-<div class="flex flex-wrap items-center justify-between gap-space-md pt-space-xs">
-<div class="flex items-center gap-1 bg-surface-container-low p-1 rounded">
-<button class="w-8 h-8 rounded flex items-center justify-center bg-primary text-on-primary hover:bg-primary-container transition-colors shadow-xs" id="replay-play" type="button" title="Play"><svg class="icon text-[18px]" aria-hidden="true" focusable="false"><use href="#ic-play_arrow"/></svg></button>
-<button class="w-8 h-8 rounded flex items-center justify-center hover:bg-surface-container-highest text-on-surface transition-colors" id="replay-pause" type="button" title="Pause"><svg class="icon text-[18px]" aria-hidden="true" focusable="false"><use href="#ic-pause"/></svg></button>
-<button class="w-8 h-8 rounded flex items-center justify-center hover:bg-surface-container-highest text-on-surface transition-colors" id="replay-reset" type="button" title="Reset"><svg class="icon text-[18px]" aria-hidden="true" focusable="false"><use href="#ic-replay"/></svg></button>
-</div>
-<div class="flex items-center bg-surface-container-low p-0.5 rounded text-on-surface-variant">
-<button class="font-label-sm text-label-sm px-2.5 py-1 rounded transition-colors" data-threshold="population" type="button">Population threshold</button>
-<button class="font-label-sm text-label-sm px-2.5 py-1 rounded transition-colors" data-threshold="personal" type="button">This patient</button>
-</div>
-<div class="flex items-center gap-1 bg-surface-container-low p-0.5 rounded text-on-surface-variant">
-<span class="font-label-sm text-label-sm px-1.5 uppercase tracking-wider text-outline">Speed</span>
-<button class="font-label-sm text-label-sm px-2 py-1 rounded transition-colors" data-speed="0.5" type="button">0.5x</button>
-<button class="font-label-sm text-label-sm px-2 py-1 rounded transition-colors bg-surface-container-lowest text-on-surface font-semibold shadow-xs" data-speed="1" type="button">1x</button>
-<button class="font-label-sm text-label-sm px-2 py-1 rounded transition-colors" data-speed="2" type="button">2x</button>
-</div>
-</div>
-</div>
-
-<div class="w-full bg-surface-container-low hover:bg-surface-container rounded p-space-md flex flex-col transition-colors cursor-pointer group" id="feature-toggle">
-<div class="flex items-center justify-between font-label-md text-label-md text-on-surface-variant">
-<div class="flex items-center gap-space-sm">
-<svg class="icon text-[18px] text-outline group-hover:text-primary transition-colors" aria-hidden="true" focusable="false"><use href="#ic-tune"/></svg>
-<span class="font-medium text-on-surface" id="feature-title"></span>
-</div>
-<div class="flex items-center gap-space-xs text-on-surface-variant">
-<span class="font-code-sm text-code-sm">Personal baseline feature values</span>
-<svg class="icon text-[18px]" aria-hidden="true" focusable="false"><use href="#ic-expand_more"/></svg>
-</div>
-</div>
-<div class="hidden mt-space-md pt-space-md border-t border-outline-variant/30 grid grid-cols-2 md:grid-cols-5 gap-3 font-code-sm text-code-sm" id="feature-details"></div>
-</div>
-</div>
-</div>
-</div></section>
-
-<!-- ===================== SCREEN 3 — THE EVIDENCE ===================== -->
-<section class="panel hidden" id="panel-evidence"><div class="flex flex-col w-full">
-<div class="w-full max-w-[1440px] mx-auto px-gutter-desktop py-space-md flex flex-col gap-space-lg">
-<div class="w-full bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex items-start gap-space-md border-l-4 border-l-primary">
-<div class="mt-0.5 text-primary"><svg class="icon text-[20px]" aria-hidden="true" focusable="false"><use href="#ic-analytics"/></svg></div>
-<div class="flex flex-col min-w-0">
-<div class="flex items-center gap-space-sm flex-wrap">
-<span class="font-headline-sm text-headline-sm text-primary uppercase tracking-wider font-semibold">Primary result &mdash; burden estimation</span>
-<span class="font-code-sm text-code-sm uppercase px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant font-medium" id="val-method"></span>
-</div>
-<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed mt-1" id="scope-note"></p>
-</div>
-</div>
-
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md w-full" id="stat-tiles"></div>
-
-<div class="bg-surface-container-lowest p-space-lg rounded-lg shadow-sm flex flex-col gap-space-md">
-<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-space-sm gap-2">
-<div>
-<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Validation analysis 01</span>
-<h2 class="font-headline-md text-headline-md text-on-surface">Burden estimation: twin kinematic output vs. self-reported NFOGQ</h2>
-</div>
-<div class="flex items-center gap-space-sm">
-<span class="font-code-sm text-code-sm text-on-surface-variant bg-surface-container-low px-2 py-1 rounded" id="val-n"></span>
-</div>
-</div>
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg pt-space-xs">
-<div class="bg-surface-container-lowest p-space-md rounded-lg flex flex-col">
-<div class="flex items-center justify-between mb-space-sm flex-wrap gap-1">
-<span class="font-headline-sm text-headline-sm text-primary font-semibold" id="sc1-stats"></span>
-<span class="font-code-sm text-code-sm px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-semibold">Twin model (inertial)</span>
-</div>
-<div class="relative w-full h-64 bg-surface-container-low/40 rounded p-space-sm overflow-hidden"><svg class="w-full h-full" fill="none" preserveAspectRatio="none" viewBox="0 0 500 220" id="sc1"></svg></div>
-<div class="flex items-center justify-between mt-space-xs text-outline"><span class="font-code-sm text-code-sm">y-axis: observed FoG rate</span><span class="font-label-sm text-label-sm font-semibold text-on-surface">x-axis: twin estimate</span></div>
-</div>
-<div class="bg-surface-container-lowest p-space-md rounded-lg flex flex-col">
-<div class="flex items-center justify-between mb-space-sm flex-wrap gap-1">
-<span class="font-headline-sm text-headline-sm text-on-surface font-semibold" id="sc2-stats"></span>
-<span class="font-code-sm text-code-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">Questionnaire (NFOGQ)</span>
-</div>
-<div class="relative w-full h-64 bg-surface-container-low/40 rounded p-space-sm overflow-hidden"><svg class="w-full h-full" fill="none" preserveAspectRatio="none" viewBox="0 0 500 220" id="sc2"></svg></div>
-<div class="flex items-center justify-between mt-space-xs text-outline"><span class="font-code-sm text-code-sm">y-axis: observed FoG rate</span><span class="font-label-sm text-label-sm font-semibold text-on-surface">x-axis: NFOGQ score</span></div>
-</div>
-</div>
-<div class="bg-surface-container-low/70 rounded p-space-sm font-body-sm text-body-sm text-on-surface-variant border-l-2 border-outline-variant" id="leverage-note"></div>
-</div>
-
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg w-full">
-<div class="bg-surface-container-lowest p-space-lg rounded-lg shadow-sm flex flex-col justify-between">
-<div class="flex flex-col mb-space-sm">
-<div class="flex items-center justify-between flex-wrap gap-2">
-<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Horizon sensitivity</span>
-<div class="flex items-center gap-space-sm text-code-sm">
-<span class="flex items-center gap-1 text-on-surface"><span class="w-2.5 h-0.5 bg-primary"></span>Model A</span>
-<span class="flex items-center gap-1 text-on-surface"><span class="w-2.5 h-0.5 bg-tertiary"></span>Model B</span>
-<span class="flex items-center gap-1 text-on-surface"><span class="w-2.5 h-0.5 bg-outline"></span>Model C</span>
-<span class="flex items-center gap-1 text-on-surface"><span class="w-2.5 h-0.5 bg-on-surface-variant"></span>prevalence (chance level)</span>
-</div>
-</div>
-<h3 class="font-headline-md text-headline-md text-on-surface">Forecasting degrades with lead time</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Area Under Precision-Recall Curve (AUPRC) across lookahead warning horizons. No arm separates from accelerometer-only.</p>
-</div>
-<div class="relative w-full h-72 bg-surface-container-low/30 rounded p-space-sm flex flex-col justify-end"><svg class="w-full h-full" fill="none" preserveAspectRatio="none" viewBox="0 0 500 240" id="horizon"></svg></div>
-<div class="flex items-center justify-between mt-space-xs text-outline"><span class="font-code-sm text-code-sm">y-axis: AUPRC</span><span class="font-label-sm text-label-sm font-semibold text-on-surface">x-axis: warning horizon (s)</span></div>
-</div>
-
-<div class="bg-surface-container-lowest p-space-lg rounded-lg shadow-sm flex flex-col justify-between">
-<div class="flex flex-col mb-space-sm">
-<div class="flex items-center justify-between flex-wrap gap-2">
-<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Heterogeneity audit</span>
-<span class="font-code-sm text-code-sm text-error bg-error-container/30 text-on-error-container px-2 py-0.5 rounded font-semibold" id="het-chip"></span>
-</div>
-<h3 class="font-headline-md text-headline-md text-on-surface">The model does not transfer uniformly across patients</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant mt-1" id="het-note"></p>
-</div>
-<div class="relative w-full h-64 bg-surface-container-low/30 rounded p-space-sm flex flex-col justify-end"><div class="w-full h-44 flex items-end gap-1 px-1" id="het-bars"></div></div>
-<div class="flex items-center justify-between pt-space-sm border-t border-outline-variant/20 mt-space-sm flex-wrap gap-2">
-<div class="flex items-center gap-space-sm text-code-sm">
-<span class="flex items-center gap-1 text-on-surface"><span class="w-2 h-2 bg-error rounded-sm"></span>below 2&times; own event rate</span>
-<span class="flex items-center gap-1 text-on-surface"><span class="w-2 h-2 bg-primary rounded-sm"></span>at or above</span>
-</div>
-<span class="font-code-sm text-code-sm text-outline" id="het-range"></span>
-</div>
-</div>
-</div>
-
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg w-full mb-space-sm">
-<div class="bg-surface-container-lowest p-space-lg rounded-lg shadow-sm flex flex-col justify-between">
-<div>
-<div class="flex items-center justify-between pb-space-xs">
-<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Negative &amp; inconclusive findings</span>
-<span class="font-code-sm text-code-sm px-2 py-0.5 rounded bg-error-container text-on-error-container font-semibold">4 / 4 null</span>
-</div>
-<h3 class="font-headline-md text-headline-md text-on-surface mb-space-sm">No arm separates from accelerometer-only</h3>
-<div class="w-full overflow-x-auto">
-<table class="w-full text-left">
-<thead><tr class="bg-surface-container-low text-outline font-label-sm text-label-sm uppercase tracking-wider">
-<th class="py-2 px-space-sm font-semibold">Mechanism</th><th class="py-2 px-space-sm text-right font-semibold">Mean change</th><th class="py-2 px-space-sm text-right font-semibold">Wins</th><th class="py-2 px-space-sm text-right font-semibold">Finding</th>
-</tr></thead>
-<tbody class="divide-y divide-surface-container" id="nulls-body"></tbody>
-</table>
-</div>
-</div>
-<p class="pt-space-md font-body-sm text-body-sm italic text-on-surface-variant">We report all four. Personalisation did not improve forecasting at this cohort size.</p>
-</div>
-
-<div class="bg-surface-container-lowest p-space-lg rounded-lg shadow-sm flex flex-col justify-between">
-<div>
-<div class="flex items-center justify-between pb-space-xs">
-<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Alarm saturation</span>
-<span class="font-code-sm text-code-sm text-outline bg-surface-container px-2 py-0.5 rounded">Operating points</span>
-</div>
-<h3 class="font-headline-md text-headline-md text-on-surface mb-space-sm">Cueing burden</h3>
-<div class="w-full overflow-x-auto">
-<table class="w-full text-left">
-<thead><tr class="bg-surface-container-low text-outline font-label-sm text-label-sm uppercase tracking-wider">
-<th class="py-2 px-space-sm font-semibold">Recall target</th><th class="py-2 px-space-sm text-right font-semibold">Precision</th><th class="py-2 px-space-sm text-right font-semibold">% of monitored time alarming</th>
-</tr></thead>
-<tbody class="divide-y divide-surface-container" id="ops-body"></tbody>
-</table>
-</div>
-</div>
-<p class="pt-space-md font-body-sm text-body-sm italic text-on-surface-variant">Evaluated on FoG-provoking protocol segments, not free-living monitoring.</p>
-</div>
-</div>
-
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg w-full mb-space-sm">
-<div class="bg-surface-container-lowest p-space-lg rounded-lg shadow-sm">
-<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Cohort &amp; method</span>
-<h3 class="font-headline-md text-headline-md text-on-surface mb-space-sm">Scope of this analysis</h3>
-<div class="grid grid-cols-2 md:grid-cols-4 gap-space-sm" id="meta-grid"></div>
-</div>
-<div class="bg-surface-container-lowest p-space-lg rounded-lg shadow-sm">
-<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Features</span>
-<h3 class="font-headline-md text-headline-md text-on-surface mb-space-sm">Movement feature set</h3>
-<div class="flex flex-wrap gap-1" id="feature-list"></div>
-</div>
-</div>
+</details>
 
 <div class="bg-surface-container-lowest p-space-lg rounded-lg shadow-sm w-full mb-space-sm">
 <h3 class="font-headline-md text-headline-md text-on-surface mb-space-sm">What this twin does not claim</h3>
@@ -1004,14 +1142,21 @@ const rho=x=>'\u03c1 = '+num(x);
 const realP=()=>DATA.patients.filter(p=>!p.synthetic);
 const allP=()=>DATA.patients;
 const burdenOf=sub=>(DATA.burden.per_patient||[]).find(r=>r.subject===sub);
-let sortBy='estimate', mode='clinical', selected=null, replayTimer=null, replayT=0, thresholdMode='population', replaySpeed=1;
+let mode='clinical', selected=null, ppSort={key:'estimate',dir:-1};
+const H=DATA.meta.horizon_s;            /* the stored risk trace is the model at this horizon */
+const STRIDE=0.5;                       /* window stride, s (docs/00_workflow.md, Stage 3) */
+const isReduced=()=>window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+const current=()=>DATA.patients.find(p=>p.subject===selected);
 
 /* ---------- tabs ---------- */
 function showTab(name){
+  if(name!=='twin')pause();
+  if(name==='twin'&&!current())selected=panelRows()[0].p.subject;
   $$('.tab').forEach(a=>{const on=a.dataset.tab===name;
     a.className='tab px-space-md py-1.5 transition-colors rounded-lg '+(on?'bg-primary-container text-on-primary-container font-semibold':'font-label-md text-label-md text-on-surface-variant hover:text-on-surface');
     if(on)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
   $$('.panel').forEach(p=>p.classList.toggle('hidden',p.id!=='panel-'+name));
+  if(name==='patients')renderPanel();
   if(name==='evidence')evidence();
   if(name==='twin')renderTwin();
 }
@@ -1020,17 +1165,7 @@ function showMode(next){mode=next;document.body.classList.toggle('tech',next==='
     b.className='mode-btn font-label-sm text-label-sm px-space-sm py-1 rounded transition-colors '+(on?'bg-surface-container-lowest text-primary font-semibold shadow-xs':'text-on-surface-variant hover:text-on-surface');});
   if(next==='technical')evidence();}
 
-/* ---------- shared ---------- */
-function activeThreshold(){const p=DATA.patients.find(q=>q.subject===selected);
-  const t=thresholdMode==='population'?DATA.meta.threshold_global:(p?p.threshold_personal:null);
-  return Number.isFinite(t)?t:DATA.meta.threshold_global;}
-function traceStride(){const p=DATA.patients.find(q=>q.subject===selected),tr=DATA.traces[p.subject];
-  if(!tr||tr.t.length<2)return null;const d=[];
-  for(let i=1;i<tr.t.length;i++){const v=+(tr.t[i]-tr.t[i-1]).toFixed(3);if(v>1e-9)d.push(v);}
-  d.sort((a,b)=>a-b);return d[Math.floor(d.length/2)];}
-function strideTxt(){const v=traceStride();return v==null?'\u2014':String(+v.toFixed(3));}
-
-/* ================= SCREEN 1 ================= */
+/* clinical background (screen 3, collapsible) */
 function problem(){
   $('#p-cohort-n').textContent=DATA.burden.n_patients;
   $('#c-nfogq-r').textContent='r = '+num(DATA.burden.nfogq_alone_r);
@@ -1040,126 +1175,151 @@ function problem(){
   const m=DATA.meta, hoursPerYear=24*365;
   $('#obs-hours').textContent=num(m.monitored_hours,2)+' monitored hours per patient';
   $('#obs-unobserved').textContent='Everything in between \u2014 unobserved ('+num(hoursPerYear-m.monitored_hours,1)+' hours)';
-  $('#next-patient-line').textContent='Proceed to Phase 2: live kinematic replay \u2022 participant '+selected;
 }
 
-/* ================= SCREEN 2 ================= */
-function sortedRows(){
-  return [...allP()].map(p=>{
-    const b=burdenOf(p.subject);
-    const key=sortBy==='estimate'?(b?b.estimate:-1):sortBy==='rate'?(b?b.actual_rate:-1):sortBy==='auprc'?(p.auprc==null?-1:p.auprc):0;
-    return {p,b,key};
-  }).sort((x,y)=>{
+/* ================= SCREEN 1 — PATIENT PANEL ================= */
+const PP_KEYS={subject:p=>p.subject,age:p=>p.age,years:p=>p.years_dx,med:p=>p.med_on?1:0,nfogq:p=>p.nfogq,
+  estimate:p=>{const b=burdenOf(p.subject);return b?b.estimate:null;},
+  observed:p=>{const b=burdenOf(p.subject);return b?b.actual_rate:null;}};
+const PP_NAMES={subject:'patient ID',age:'age',years:'years since diagnosis',estimate:'estimated freezing burden',observed:'observed rate',nfogq:'NFOGQ',med:'medication state'};
+/* Synthetic patient always last; patients without a value for the sort key after those with one. */
+function panelRows(){
+  const get=PP_KEYS[ppSort.key],dir=ppSort.dir;
+  return DATA.patients.map(p=>({p,v:get(p)})).sort((x,y)=>{
     if(!!x.p.synthetic!==!!y.p.synthetic)return x.p.synthetic?1:-1;
-    if(sortBy==='subject')return x.p.subject.localeCompare(y.p.subject);
-    return y.key-x.key;
+    if(x.v==null||y.v==null)return (x.v==null)-(y.v==null)||x.p.subject.localeCompare(y.p.subject);
+    const c=typeof x.v==='string'?x.v.localeCompare(y.v):x.v-y.v;
+    return dir*c||x.p.subject.localeCompare(y.p.subject);
   });
 }
-function renderList(){
-  const rows=sortedRows();
-  const vals=(DATA.burden.per_patient||[]).map(r=>r.estimate), maxV=Math.max(...vals,1e-9);
-  $('#patient-list').innerHTML=rows.filter(r=>!r.p.synthetic).map(({p,b})=>{
-    const w=b?Math.max(2,100*b.estimate/maxV):0;
-    const seen=b?'estimate '+num(b.estimate)+' \u00b7 observed '+pct(b.actual_rate):'not in cohort';
-    return '<button class="patient-row cursor-pointer w-full text-left flex items-center justify-between p-2 rounded transition-colors '+(p.subject===selected?'bg-secondary-container/20 border-l-[3px] border-l-primary':'hover:bg-surface-container-low')+'" data-sub="'+esc(p.subject)+'">'+
-      '<span class="flex flex-col gap-1 w-full mr-2">'+
-      '<span class="flex items-center justify-between"><span class="font-code-md text-code-md '+(p.subject===selected?'font-semibold text-primary':'text-on-surface')+'">'+esc(p.subject)+'</span>'+
-      '<span class="font-code-sm text-code-sm '+(p.subject===selected?'font-semibold text-primary':'text-on-surface-variant')+'">'+(b?pct(b.actual_rate):'')+'</span></span>'+
-      '<span class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden"><span class="block h-full rounded-full '+(p.subject===selected?'bg-primary':'bg-outline')+'" style="width:'+w+'%"></span></span>'+
-      '<span class="font-body-sm text-body-sm text-outline '+(b?'':'italic')+'">'+seen+'</span>'+
-      '</span></button>';
+function renderPanel(){
+  const rows=panelRows(),nB=(DATA.burden.per_patient||[]).length,nR=realP().length;
+  const maxE=Math.max(...(DATA.burden.per_patient||[]).map(r=>r.estimate),1e-9);
+  $('#pp-count').textContent=nR+' patients under monitoring · '+nB+' with a burden estimate';
+  $('#pp-triage').textContent=(ppSort.key==='estimate'&&ppSort.dir<0)?
+    'Triage order: highest estimated freezing burden first, so the patients the twin estimates are freezing most are reviewed first. The estimate is concurrent (current burden from recorded movement), not a forecast. Patients without a burden estimate are listed after those with one.':
+    'Sorted by '+PP_NAMES[ppSort.key]+' ('+(ppSort.dir<0?'highest':'lowest')+' first). Sort by estimated freezing burden, highest first, to return to triage order.';
+  $('#pp-body').innerHTML=rows.map(({p})=>{
+    const b=burdenOf(p.subject);
+    const est=p.synthetic?'<span class="pp-muted">Synthetic — demonstration only</span>':
+      b?'<span class="pp-est"><span class="font-code-md text-code-md font-semibold">'+num(b.estimate)+'</span><span class="pp-bar"><span style="width:'+(100*b.estimate/maxE).toFixed(1)+'%"></span></span></span>':
+      '<span class="pp-muted">No burden estimate for this visit</span>';
+    const obs=p.synthetic?'<span class="pp-muted">not applicable</span>':b?pct(b.actual_rate):'<span class="pp-muted">not available</span>';
+    return '<tr tabindex="0" data-sub="'+esc(p.subject)+'"'+(p.subject===selected?' aria-current="true"':'')+'>'+
+      '<td><span class="font-code-md text-code-md font-semibold text-on-surface">'+esc(p.subject)+'</span>'+(p.synthetic?' <span class="syn-badge">Synthetic</span>':'')+'</td>'+
+      '<td>'+esc(p.age)+' · '+esc(p.sex)+'</td><td class="num">'+esc(p.years_dx)+'</td><td>'+est+'</td><td class="num">'+obs+'</td>'+
+      '<td class="num">'+esc(Number(p.nfogq))+'</td><td>'+(p.med_on?'On':'Off')+'</td></tr>';
   }).join('');
-  $$('#patient-list .patient-row').forEach(el=>el.onclick=()=>{selected=el.dataset.sub;replayT=0;stopReplay();renderList();renderTwin();});
-  const syn=DATA.patients.find(p=>p.synthetic);
-  const box=$('#synthetic-row');
-  if(syn){box.classList.remove('hidden');
-    box.innerHTML='<div class="flex items-center justify-between"><span class="font-code-md text-code-md font-semibold text-on-surface">'+esc(syn.subject)+'</span>'+
-      '<span class="font-code-sm text-code-sm px-1.5 py-0.5 rounded bg-surface-container-highest text-on-surface-variant uppercase font-medium">Synthetic</span></div>'+
-      '<div class="flex items-center justify-between text-on-surface-variant"><span class="font-body-sm text-body-sm">demonstration twin</span><span class="font-code-sm text-code-sm">excluded from cohort stats</span></div>';
-    box.onclick=()=>{selected=syn.subject;replayT=0;stopReplay();renderList();renderTwin();};}
-  const nB=(DATA.burden.per_patient||[]).length,nP=allP().filter(p=>!p.synthetic).length;
-  $('#list-note').textContent=nB+' of '+nP+' patients have a burden estimate';
+  $$('#pp-body tr').forEach(tr=>{
+    tr.onclick=()=>openPatient(tr.dataset.sub);
+    tr.onkeydown=e=>{
+      if(e.key==='Enter'||e.key===' '){e.preventDefault();openPatient(tr.dataset.sub);}
+      else if(e.key==='ArrowDown'||e.key==='ArrowUp'){const n=e.key==='ArrowDown'?tr.nextElementSibling:tr.previousElementSibling;if(n){e.preventDefault();n.focus();}}
+    };
+  });
+  $$('#pp-head [data-sort]').forEach(b=>{const on=b.dataset.sort===ppSort.key;
+    b.closest('th').setAttribute('aria-sort',on?(ppSort.dir<0?'descending':'ascending'):'none');
+    b.querySelector('.sort-ind').textContent=on?(ppSort.dir<0?'▼':'▲'):'';});
 }
+function openPatient(sub){selected=sub;TL.sub=null;showTab('twin');window.scrollTo(0,0);$('#head-subject').focus({preventScroll:true});}
+
+/* ================= SCREEN 2 — THE VIRTUAL PATIENT ================= */
 function renderTwin(){
-  const p=DATA.patients.find(q=>q.subject===selected);if(!p)return;
-  const b=burdenOf(p.subject);
+  const p=current();if(!p)return;
+  const order=panelRows().map(r=>r.p.subject),k=order.indexOf(p.subject);
+  $('#pt-pos').textContent='Patient '+(k+1)+' of '+order.length+' (panel order)';
+  $('#prev-pt').disabled=k<=0;$('#next-pt').disabled=k>=order.length-1;
+  /* band 1 — static stream, values as stored */
   $('#head-subject').textContent=p.subject;
-  $('#head-demo').textContent=[p.age+'y',p.sex,p.years_dx+' years since diagnosis','Visit '+p.visit].join(' \u00b7 ');
-  $('#head-med').textContent='Medication: '+(p.med_on?'on':'off');
-  $('#head-clinical').innerHTML='<span class="bg-surface-container-low px-2 py-0.5 rounded">UPDRS-III on <b class="text-on-surface font-semibold ml-0.5">'+p.updrs_on+'</b></span>'+
-    '<span class="bg-surface-container-low px-2 py-0.5 rounded">UPDRS-III off <b class="text-on-surface font-semibold ml-0.5">'+p.updrs_off+'</b></span>'+
-    '<span class="bg-surface-container-low px-2 py-0.5 rounded">NFOGQ <b class="text-on-surface font-semibold ml-0.5">'+p.nfogq+'</b></span>';
-  $('#burden-estimate').textContent=b?num(b.estimate):'\u2014';
-  $('#burden-observed').textContent=b?pct(b.actual_rate):'\u2014';
-  $('#burden-nfogq').textContent='NFOGQ '+p.nfogq;
-  const vals=(DATA.burden.per_patient||[]).map(r=>r.estimate),lo=Math.min(...vals),hi=Math.max(...vals);
-  $('#dist-min').textContent=num(lo)+' min';
-  $('#dist-max').textContent=num(hi)+' max';
-  $('#dist-label').textContent='Cohort estimate distribution (n='+DATA.burden.n_patients+')';
-  const xof=v=>20+500*(v-lo)/((hi-lo)||1);
-  let svg='<line stroke="#bcc9c6" stroke-dasharray="2 3" stroke-width="1.5" x1="0" x2="500" y1="20" y2="20"/>';
-  (DATA.burden.per_patient||[]).forEach(r=>{svg+='<circle fill="#6d7a77" fill-opacity="0.45" cx="'+xof(r.estimate).toFixed(1)+'" cy="20" r="3.5"/>';});
-  if(b){const x=xof(b.estimate).toFixed(1);
-    svg+='<circle fill="#00685f" fill-opacity="0.2" cx="'+x+'" cy="20" r="11"/><line stroke="#00685f" stroke-width="2" x1="'+x+'" x2="'+x+'" y1="2" y2="12"/><circle fill="#00685f" cx="'+x+'" cy="20" r="7"/>';}
-  $('#burden-dist').innerHTML=svg;
-  const jk=DATA.burden;
-  $('#burden-constraints').innerHTML=
-    '<span>\u2022 Concurrent estimate \u2014 not a forecast of future burden.</span>'+
-    '<span>\u2022 n = '+jk.n_patients+' patients, single cohort, correlational, no external validation.</span>'+
-    '<span>\u2022 Pearson is leverage-sensitive: dropping the highest-burden patient gives r = '+num(jk.jackknife_r_min)+' (p = '+num(jk.jackknife_p_max,3)+'). Jackknife range r = '+num(jk.jackknife_r_min)+'\u2013'+num(jk.jackknife_r_max)+'.</span>';
-  $('#twin-cadence').textContent='fs = '+DATA.meta.fs+' Hz sampling \u00b7 '+num(DATA.meta.window_s,1)+' s windows \u00b7 '+strideTxt()+' s window stride';
-  $('#pose-fs').textContent='fs = '+DATA.meta.fs+' Hz sampling';
-  const fr=p.baseline.fog_ratio;const allr=realP().map(q=>q.baseline.fog_ratio),fmin=Math.min(...allr),fmax=Math.max(...allr);
-  $('#pose-fogr').textContent=num(fr,2);
-  $('#pose-meter').style.height=Math.max(4,Math.min(100,100*(fr-fmin)/((fmax-fmin)||1)))+'%';
-  /* #pose-risk and the pose figure are owned by renderPose(), which reads the
-     replay cursor; they are no longer bound to the trailing trace window. */
-  const fs=$('#feature-details');
-  $('#feature-title').textContent='Movement baseline detail ('+DATA.feature_names.length+' features)';
-  fs.innerHTML=DATA.feature_names.map(f=>'<div class="bg-surface-container-lowest p-2 rounded flex flex-col"><span class="text-on-surface-variant text-[10px] uppercase">'+esc(f)+'</span><span class="font-semibold text-on-surface">'+num(p.baseline[f],3)+'</span></div>').join('');
+  $('#syn-badge').classList.toggle('hidden',!p.synthetic);
+  const kv=[['Age',p.age],['Sex',p.sex],['Years since diagnosis',p.years_dx],['Visit (ordinal)','Visit '+p.visit],
+    ['UPDRS-III, on medication',p.updrs_on],['UPDRS-III, off medication',p.updrs_off],['NFOGQ',Number(p.nfogq)],['Medication at recording',p.med_on?'On':'Off']];
+  $('#static-grid').innerHTML=kv.map(([k,v])=>'<div class="kv"><dt>'+k+'</dt><dd>'+esc(v)+'</dd></div>').join('');
+  renderBand2(p);
   renderSignals();
-  replay();
-  if(p.synthetic){$('#burden-estimate').textContent='Synthetic';$('#burden-observed').textContent='Demonstration only';}
+  if(TL.sub!==p.subject)loadTimeline(p.subject);else frame(true);
 }
-/* ---- replay: risk vs seconds-until-freeze ---- */
-function approachSeries(){
-  const p=DATA.patients.find(q=>q.subject===selected),tr=DATA.traces[p.subject];if(!tr)return null;
-  const bins=[],BW=0.5,MAXDT=12;
-  for(let b=MAXDT;b>0;b-=BW){const lo=b-BW,hi=b;bins.push({dt:b,lo:lo,hi:hi,v:[]});}
-  let nextOnset=-1;
-  for(let i=tr.t.length-1;i>=0;i--){if(tr.label[i])nextOnset=tr.t[i];
-    if(nextOnset<0)continue;
-    const dt=nextOnset-tr.t[i];
-    if(dt>0&&dt<=MAXDT){const bin=bins[Math.min(bins.length-1,Math.floor((MAXDT-dt)/BW))];if(bin)bin.v.push(tr.risk[i]);}}
-  return bins.map(b=>({dt:b.dt,mean:b.v.length?b.v.reduce((a,c)=>a+c,0)/b.v.length:null,n:b.v.length}));
+/* band 2 — burden estimate with its position in the cohort (rank and median of the stored estimates) */
+function renderBand2(p){
+  const rows=DATA.burden.per_patient||[],b=burdenOf(p.subject);
+  const sorted=rows.map(r=>r.estimate).sort((a,c)=>a-c),n=sorted.length;
+  const median=n%2?sorted[(n-1)/2]:(sorted[n/2-1]+sorted[n/2])/2;
+  if(p.synthetic){
+    $('#burden-estimate').textContent='Synthetic';
+    $('#burden-rank').textContent='Demonstration patient — not part of the cohort';
+    $('#burden-observed').textContent='';
+  }else if(b){
+    const rank=rows.filter(r=>r.estimate>b.estimate).length+1;
+    $('#burden-estimate').textContent=num(b.estimate);
+    $('#burden-rank').textContent='Rank '+rank+' of '+n+' (1 = highest) · cohort median '+num(median);
+    $('#burden-observed').textContent='Held-out observed freezing rate (validation): '+pct(b.actual_rate);
+  }else{
+    $('#burden-estimate').textContent='No estimate';
+    $('#burden-rank').textContent='No burden estimate for this visit — outside the '+n+'-patient burden analysis';
+    $('#burden-observed').textContent='';
+  }
+  const lo=sorted[0],hi=sorted[n-1],X=v=>20+860*(v-lo)/((hi-lo)||1);
+  let s='<line class="sv-axis" x1="20" x2="880" y1="28" y2="28"/>';
+  s+='<line class="tl-thr" x1="'+X(median).toFixed(1)+'" x2="'+X(median).toFixed(1)+'" y1="12" y2="44" style="stroke:var(--outline)"/>';
+  s+='<text class="sv-label" text-anchor="middle" x="'+X(median).toFixed(1)+'" y="9">median '+num(median)+'</text>';
+  rows.forEach(r=>{if(r.subject!==p.subject)s+='<circle class="sv-pt" cx="'+X(r.estimate).toFixed(1)+'" cy="28" r="4"><title>'+burdenTip(r)+'</title></circle>';});
+  if(b&&!p.synthetic)s+='<circle class="sv-ring" cx="'+X(b.estimate).toFixed(1)+'" cy="28" r="11"/><circle class="sv-pt-sel" cx="'+X(b.estimate).toFixed(1)+'" cy="28" r="6"><title>'+burdenTip(b)+'</title></circle>';
+  s+='<text class="sv-label" x="20" y="60">'+num(lo)+' lowest</text><text class="sv-label" text-anchor="end" x="880" y="60">'+num(hi)+' highest</text>';
+  $('#burden-strip').innerHTML=s;
+  $('#strip-label').textContent='Position among the '+n+' patients with an estimate';
+  $('#feature-title').textContent='Personal movement baseline — '+DATA.feature_names.length+' features from the home recording (active windows)';
+  $('#feature-grid').innerHTML=DATA.feature_names.map(f=>'<div class="kv"><dt>'+esc(f)+'</dt><dd>'+num(p.baseline[f],3)+'</dd></div>').join('');
 }
-function replay(){
-  const p=DATA.patients.find(q=>q.subject===selected),tr=DATA.traces[p.subject];
-  if(!tr){$('#risk-chart').innerHTML='';renderPose(null,null,activeThreshold());return;}
-  const series=approachSeries(),thr=activeThreshold();
-  const w=700,h=160,pad=36,n=Math.max(1,series.length-1);
-  const x=i=>pad+i*(w-2*pad)/n,y=v=>h-pad-v*(h-2*pad);
-  let svg='<line stroke="#ba1a1a" stroke-dasharray="4 4" stroke-width="1.5" x1="0" x2="700" y1="'+y(thr).toFixed(1)+'" y2="'+y(thr).toFixed(1)+'"/>';
-  svg+='<line stroke="#ba1a1a" stroke-width="2.5" x1="700" x2="700" y1="0" y2="160"/>';
-  const pts=series.map((b,i)=>b.mean==null?null:[x(i),y(b.mean)]);
-  const path=pts.filter(Boolean).map((c,i)=>(i?'L':'M')+c[0].toFixed(1)+','+c[1].toFixed(1)).join('');
-  svg+='<path d="'+path+'" fill="none" stroke="#0b1c30" stroke-width="2.5"/>';
-  const cur=Math.max(0,Math.min(series.length-1,Math.round(replayT)));
-  const cp=pts[cur];
-  if(cp)svg+='<circle fill="#ba1a1a" cx="'+cp[0].toFixed(1)+'" cy="'+cp[1].toFixed(1)+'" r="5"/><circle fill="#ba1a1a" fill-opacity="0.25" cx="'+cp[0].toFixed(1)+'" cy="'+cp[1].toFixed(1)+'" r="10"/>';
-  $('#risk-chart').innerHTML=svg;
-  $('#thr-label').textContent='alarm threshold '+num(thr);
-  $('#risk-axis').innerHTML=[12,10,8,6,4,2,0].map(v=>'<span'+(v===0?' class="font-bold text-error"':'')+'>'+v+' s</span>').join('');
-  $('#replay-xlabel').textContent='seconds until freeze \u00b7 '+strideTxt()+' s window stride (windowed, not continuous)';
-  const binsWith=series.filter(b=>b.mean!=null).length;
-  $('#risk-note').textContent='Episode-level forecasting is weak at this cohort size. Curve = mean out-of-fold risk per '+strideTxt()+' s window; '+binsWith+' of '+series.length+' windows in the 12 s pre-freeze period are populated. The twin reads discrete windows, not a continuous signal.';
-  const r=cp?series[cur].mean:null;
-  $('#risk-readout').textContent=r==null?'\u2014':num(r);
-  const on=(r!=null&&r>thr);
-  $('#alarm-chip').textContent=on?'Alarm':'Idle';
-  $('#alarm-chip').className='font-code-sm text-code-sm font-bold px-2 py-0.5 rounded uppercase leading-none tracking-wider text-center '+(on?'bg-error text-on-error':'bg-surface-container text-on-surface-variant');
-  $('#risk-eta').textContent=on?(series[cur].dt.toFixed(1)+' s until freeze'):'risk away from freeze';
-  renderPose(r,series[cur].dt,thr);
+/* ---- burden scatter: twin estimate vs held-out observed rate -----------------
+   Every number shown comes from the payload. The r readout is never computed
+   here: it is burden.pearson_r with all patients, and burden.jackknife_r_min
+   (with jackknife_p_max) when the highest-burden patient is excluded; the
+   payload's leverage note identifies that deletion as the minimum. Spearman is
+   the payload's full-cohort value in both states. The least-squares line is
+   drawn from the plotted points for orientation only and no slope is reported. */
+let excludeTop=false;
+const fmtP=p=>p<0.001?'p < 0.001':'p = '+num(p,3);
+function topBurden(){return (DATA.burden.per_patient||[]).reduce((a,r)=>(!a||r.actual_rate>a.actual_rate)?r:a,null);}
+function lsq(pts){
+  const n=pts.length;if(n<2)return null;
+  const mx=pts.reduce((s,r)=>s+r.estimate,0)/n,my=pts.reduce((s,r)=>s+r.actual_rate,0)/n;
+  let sxx=0,sxy=0;pts.forEach(r=>{sxx+=(r.estimate-mx)**2;sxy+=(r.estimate-mx)*(r.actual_rate-my);});
+  return sxx?{m:sxy/sxx,c:my-(sxy/sxx)*mx}:null;
+}
+const burdenTip=r=>esc(r.subject)+' \u2014 estimate '+num(r.estimate)+', observed '+pct(r.actual_rate)+', NFOGQ '+(r.nfogq==null?'\u2014':Number(r.nfogq));
+function renderBurdenScatter(){
+  const B=DATA.burden,all=B.per_patient||[],top=topBurden();
+  if(!all.length){$('#burden-scatter').innerHTML='';return;}
+  const shown=(excludeTop&&top)?all.filter(r=>r!==top):all;
+  const w=500,h=230,L=46,R=12,T=12,BT=38;
+  const xmax=Math.max(...all.map(r=>r.estimate))*1.05,ymax=Math.max(...all.map(r=>r.actual_rate))*1.08;
+  const X=v=>L+v/xmax*(w-L-R),Y=v=>h-BT-v/ymax*(h-T-BT);
+  let s='';
+  for(let k=0;k*0.05<=ymax;k++){const y=Y(k*0.05).toFixed(1);
+    s+='<line class="sv-grid" x1="'+L+'" x2="'+(w-R)+'" y1="'+y+'" y2="'+y+'"/><text class="sv-label" text-anchor="end" x="'+(L-5)+'" y="'+(+y+3)+'">'+(k*5)+'%</text>';}
+  for(let k=0;k*0.1<=xmax;k++){const x=X(k*0.1).toFixed(1);
+    s+='<text class="sv-label" text-anchor="middle" x="'+x+'" y="'+(h-BT+14)+'">'+(k/10).toFixed(1)+'</text>';}
+  s+='<line class="sv-axis" x1="'+L+'" x2="'+(w-R)+'" y1="'+(h-BT)+'" y2="'+(h-BT)+'"/><line class="sv-axis" x1="'+L+'" x2="'+L+'" y1="'+T+'" y2="'+(h-BT)+'"/>';
+  s+='<text class="sv-title" text-anchor="middle" x="'+((L+w-R)/2)+'" y="'+(h-6)+'">twin burden estimate (movement only)</text>';
+  s+='<text class="sv-title" text-anchor="middle" transform="translate(11 '+((T+h-BT)/2)+') rotate(-90)">held-out observed FoG rate</text>';
+  const f=lsq(shown);
+  if(f){const xs=shown.map(r=>r.estimate),x0=Math.min(...xs),x1=Math.max(...xs);
+    s+='<line class="sv-fit" x1="'+X(x0).toFixed(1)+'" x2="'+X(x1).toFixed(1)+'" y1="'+Y(f.m*x0+f.c).toFixed(1)+'" y2="'+Y(f.m*x1+f.c).toFixed(1)+'"/>';}
+  let sel='';
+  all.forEach(r=>{
+    const cx=X(r.estimate).toFixed(1),cy=Y(r.actual_rate).toFixed(1),out=excludeTop&&r===top;
+    const tip='<title>'+burdenTip(r)+(out?' (excluded)':'')+'</title>';
+    const mark=out?'<circle class="sv-excl" cx="'+cx+'" cy="'+cy+'" r="5">'+tip+'</circle>':
+      (r.subject===selected?'':'<circle class="sv-pt" cx="'+cx+'" cy="'+cy+'" r="4">'+tip+'</circle>');
+    s+=mark;
+    if(r.subject===selected&&!out)sel='<circle class="sv-ring" cx="'+cx+'" cy="'+cy+'" r="11"/><circle class="sv-pt-sel" cx="'+cx+'" cy="'+cy+'" r="6"><title>'+burdenTip(r)+'</title></circle>';
+  });
+  $('#burden-scatter').innerHTML=s+sel;
+  $('#burden-rho').textContent='Spearman ρ = '+num(B.spearman_r)+' ('+fmtP(B.spearman_p)+') · all '+all.length+' patients';
+  $('#burden-r').textContent=(excludeTop&&top)?
+    'Pearson r = '+num(B.jackknife_r_min)+' ('+fmtP(B.jackknife_p_max)+') · '+top.subject+' excluded, '+shown.length+' of '+all.length+' plotted':
+    'Pearson r = '+num(B.pearson_r)+' ('+fmtP(B.pearson_p)+') · all '+all.length+' patients';
+  $('#burden-scatter-caption').textContent='Pearson is leverage-sensitive. Excluding the highest-burden patient gives r = '+num(B.jackknife_r_min)+' ('+fmtP(B.jackknife_p_max)+'); across all single-patient deletions r spans '+num(B.jackknife_r_min)+'–'+num(B.jackknife_r_max)+'.';
 }
 /* ---- pose figure ----------------------------------------------------------
    The only sensor is a single tri-axial IMU at L4, so limb positions are not
@@ -1173,20 +1333,21 @@ function renderPose(risk,dt,thr){
   const fig=$('#pose-figure'),chip=$('#pose-risk'),eta=$('#pose-eta');
   const pulse=$('#pose-pulse'),marker=$('#pose-marker'),vec=$('#pose-vec'),dot=$('#pose-vec-dot');
   const state=risk==null?'none':(risk>=thr?'alarm':'below');
-  const alarm=state==='alarm',dim=state==='none',grey='#bcc9c6';
+  const alarm=state==='alarm',dim=state==='none',grey='var(--outline-variant)';
   fig.style.transformOrigin='50% 100%';
   fig.style.transform=alarm?'translate(2px,2px) rotate(1deg)':'';
   fig.style.opacity=dim?'0.45':'1';
   /* torso, head and limb outlines: outline colour -> error colour */
   $$('#pose-figure .pose-limb').forEach(el=>{
-    el.style.stroke=alarm?'#ba1a1a':'';
+    el.style.stroke=alarm?'var(--error)':'';
     el.style.strokeWidth=alarm?(Number(el.getAttribute('stroke-width'))+1)+'px':'';
   });
   /* L4 sensor marker: colour and pulse rate; ring radius scales with risk */
-  marker.style.fill=alarm?'#ba1a1a':(dim?grey:'');
-  vec.style.stroke=alarm?'#ba1a1a':(dim?grey:'');
-  dot.style.fill=alarm?'#ba1a1a':(dim?grey:'');
-  pulse.style.fill=alarm?'rgba(186,26,26,0.22)':(dim?'rgba(188,201,198,0.18)':'');
+  marker.style.fill=alarm?'var(--error)':(dim?grey:'');
+  vec.style.stroke=alarm?'var(--error)':(dim?grey:'');
+  dot.style.fill=alarm?'var(--error)':(dim?grey:'');
+  pulse.style.fill=alarm?'var(--error)':(dim?'var(--outline-variant)':'');
+  pulse.style.fillOpacity=alarm?'0.22':(dim?'0.18':'');
   pulse.style.animationName=dim?'none':'ping';
   pulse.style.animationDuration=alarm?'0.7s':'1.4s';
   const ratio=(!dim&&Number.isFinite(thr)&&thr>0)?Math.max(0,Math.min(1.5,risk/thr)):0;
@@ -1195,7 +1356,7 @@ function renderPose(risk,dt,thr){
     (alarm?'bg-error text-on-error':(dim?'bg-surface-container text-outline':'bg-surface-container text-on-surface-variant'));
   chip.textContent=alarm?'Alarm-level risk':(dim?'No data':'Below threshold');
   eta.className='font-code-sm text-code-sm font-semibold px-2 py-0.5 rounded bg-surface-container '+(alarm?'text-error':'text-outline');
-  eta.textContent=(dt==null||!Number.isFinite(dt))?'\u2014':dt.toFixed(1)+' s until freeze';
+  eta.textContent=(dt==null||!Number.isFinite(dt))?'no labelled onset ahead':dt.toFixed(1)+' s to labelled onset';
 }
 /* ---- tri-axial accelerometry ---------------------------------------------
    Bound to the schema actually written by scripts/export_signal_snippets.py:
@@ -1205,7 +1366,7 @@ function renderPose(risk,dt,thr){
    Nothing is synthesised: if the payload has no snippet for this subject, the
    withheld empty state stays exactly as authored. */
 const SIG_EMPTY_CAPTION='Raw 100 Hz waveforms are withheld until the signal snippets are exported with the model; nothing here is interpolated or drawn from a continuous stream.';
-const SIG_AXES=[['accv','#00685f'],['accml','#3174b5'],['accap','#b56e00']];
+const SIG_AXES=[['accv','var(--primary)'],['accml','var(--chart-a)'],['accap','var(--chart-b)']];
 function sigRate(s){
   const n=(s.accv||[]).length||(s.accml||[]).length||(s.accap||[]).length;
   if(Number.isFinite(s.fs)&&s.fs>0)return s.fs;
@@ -1220,15 +1381,15 @@ function sigSvg(s){
   vmax=Math.ceil(vmax*10)/10;
   const w=520,h=112,L=34,R=12,T=10,B=20;
   const X=i=>L+i/(Math.max(n-1,1))*(w-L-R),Y=v=>T+(vmax-v)/(2*vmax)*(h-T-B);
-  let g='<line stroke="#bcc9c6" stroke-dasharray="2 3" x1="'+L+'" x2="'+(w-R)+'" y1="'+Y(0).toFixed(1)+'" y2="'+Y(0).toFixed(1)+'"/>';
+  let g='<line style="stroke:var(--outline-variant)" stroke-dasharray="2 3" x1="'+L+'" x2="'+(w-R)+'" y1="'+Y(0).toFixed(1)+'" y2="'+Y(0).toFixed(1)+'"/>';
   SIG_AXES.forEach(a=>{
     const v=s[a[0]]||[];let d='';
     for(let i=0;i<n;i++){d+=(i?'L':'M')+X(i).toFixed(1)+','+Y(Number.isFinite(v[i])?v[i]:0).toFixed(1);}
-    if(d)g+='<path d="'+d+'" fill="none" stroke="'+a[1]+'" stroke-width="1.4"/>';
+    if(d)g+='<path d="'+d+'" fill="none" style="stroke:'+a[1]+'" stroke-width="1.4"/>';
   });
-  g+='<text fill="#6d7a77" font-size="8" x="2" y="'+(T+8)+'">+'+vmax.toFixed(1)+'</text>';
-  g+='<text fill="#6d7a77" font-size="8" x="2" y="'+(h-B)+'">\u2212'+vmax.toFixed(1)+'</text>';
-  g+='<text fill="#6d7a77" font-size="8" x="'+L+'" y="'+(h-4)+'">0 \u2192 '+duration.toFixed(1)+' s contiguous window \u00b7 fs = '+fs+' Hz</text>';
+  g+='<text style="fill:var(--outline)" font-size="8" x="2" y="'+(T+8)+'">+'+vmax.toFixed(1)+'</text>';
+  g+='<text style="fill:var(--outline)" font-size="8" x="2" y="'+(h-B)+'">\u2212'+vmax.toFixed(1)+'</text>';
+  g+='<text style="fill:var(--outline)" font-size="8" x="'+L+'" y="'+(h-4)+'">0 \u2192 '+duration.toFixed(1)+' s contiguous window \u00b7 fs = '+fs+' Hz</text>';
   return '<svg class="w-full" role="img" viewBox="0 0 '+w+' '+h+'" aria-label="lower-back tri-axial accelerometry at '+fs+' Hz">'+g+'</svg>';
 }
 function renderSignals(){
@@ -1256,25 +1417,197 @@ function renderSignals(){
   empty.className='hidden';
   cap.textContent=DATA.signal_note||('Measured lower-back accelerometry displayed at '+fs+' Hz.');
 }
-const REPLAY_MS={'0.5':1000,'1':500,'2':250};
-function startReplay(){stopReplay();replayTimer=setInterval(()=>{const s=approachSeries();replayT+=1;if(replayT>s.length-1){replayT=s.length-1;stopReplay();}replay();},REPLAY_MS[String(replaySpeed)]||500);}
-function stopReplay(){if(replayTimer)clearInterval(replayTimer);replayTimer=null;}
 
+/* ---- band 3: retrospective replay of the stored risk trace --------------------
+   DATA.traces[subject] holds, per 4 s window, its end time t (s), the stored model
+   risk, and label = 1 on the window that is positive at the stored horizon
+   (meta.horizon_s). A positive window ends h s before an onset
+   (docs/03_data_and_target.md), so each labelled onset is drawn at t + horizon_s,
+   good to +/-0.25 s. Windows are sampled task segments, not a continuous stream:
+   gaps between segments are drawn as gaps and nothing is interpolated across them.
+   Every risk value displayed is tr.risk[i] exactly as stored; JavaScript only
+   compares it with the alarm threshold. */
+const TL={sub:null,tr:null,segs:[],onsets:[],D:0,p:0,playing:false,speed:1,raf:0,step:0,last:0,
+  h:H,thr:DATA.meta.threshold_global};
+const GAP=3;                           /* display seconds used to draw each gap */
+function loadTimeline(sub){
+  pause();
+  const tr=DATA.traces[sub];TL.sub=sub;TL.tr=tr||null;TL.segs=[];TL.onsets=[];TL.D=0;TL.p=0;
+  if(tr&&tr.t.length){
+    const t=tr.t;let i0=0,d=0;
+    for(let i=1;i<=t.length;i++){
+      if(i<t.length&&t[i]-t[i-1]<=STRIDE*1.5)continue;
+      const seg={i0,i1:i-1,r0:t[i0],r1:t[i-1]+STRIDE};
+      for(let j=i0;j<i;j++)if(tr.label[j]){const o={t:t[j]+H,li:j,seg:TL.segs.length};TL.onsets.push(o);seg.r1=Math.max(seg.r1,o.t+STRIDE);}
+      seg.d0=d;seg.d1=d+(seg.r1-seg.r0);d=seg.d1+GAP;TL.segs.push(seg);i0=i;
+    }
+    TL.D=d-GAP;
+  }
+  frame(true);
+}
+const passRate=()=>TL.D/30;            /* 1x plays the whole recording in 30 s */
+function locate(p){
+  for(const s of TL.segs){
+    if(p>=s.d0&&p<=s.d1){
+      const real=s.r0+(p-s.d0);let i=null;
+      for(let j=s.i0;j<=s.i1;j++){if(TL.tr.t[j]<=real+1e-9)i=j;else break;}
+      if(i!=null&&real>=TL.tr.t[i]+STRIDE)i=null;   /* past the last window: onset region, no window */
+      return {seg:s,real,i};
+    }
+  }
+  return {seg:null,real:null,i:null};
+}
+const dispOf=(s,real)=>s.d0+(real-s.r0);
+function nextOnset(real){return TL.onsets.find(o=>o.t>=real-1e-9)||null;}
+function frame(full){
+  const p=current();
+  const loc=TL.D?locate(TL.p):{seg:null,real:null,i:null};
+  const risk=loc.i==null?null:TL.tr.risk[loc.i];
+  const alarm=risk!=null&&risk>=TL.thr;
+  const nxt=loc.real==null?null:nextOnset(loc.real),lead=nxt?nxt.t-loc.real:null;
+  $('#risk-readout').textContent=risk==null?'—':num(risk,3);
+  $('#risk-readout').title=risk==null?'':'stored value '+risk;
+  const chip=$('#alarm-chip');chip.classList.toggle('on',alarm);
+  chip.textContent=!TL.D?'No trace':loc.seg==null?'Not monitored':risk==null?'No window':alarm?'Alarm':'No alarm';
+  $('#lead-readout').textContent=lead==null?'—':lead.toFixed(1)+' s';
+  $('#clock-readout').textContent=!TL.D?'No stored trace for this patient':loc.seg==null?'Between monitored segments (not sampled)':
+    't = '+loc.real.toFixed(1)+' s into the recording'+(risk==null?' · onset region, no window':'');
+  renderPose(risk,lead,TL.thr);
+  $('#scrub').value=TL.D?Math.round(1000*TL.p/TL.D):0;
+  drawDetail(loc,!TL.playing);
+  if(full)drawOverview();else moveOverviewPlayhead();
+  syncControls();
+}
+/* detail view: a window of the recording around the playhead */
+function viewSpan(){return Math.max(20,Math.min(180,passRate()*TL.speed*6));}
+function viewStart(S){return Math.max(0,Math.min(Math.max(0,TL.D-S),TL.p-0.65*S));}
+function drawDetail(loc,withTitles){
+  const svg=$('#tl-detail');
+  if(!TL.D){svg.innerHTML='<text class="tl-axis" x="500" y="105" text-anchor="middle">No stored risk trace for this patient.</text>';return;}
+  const W=1000,L=34,R=8,T=16,B=36,S=viewSpan(),v0=viewStart(S),v1=v0+S;
+  const X=d=>L+(d-v0)/S*(W-L-R),Y=r=>T+(1-r)*(170-T-B+20);
+  const yb=Y(0),tr=TL.tr;
+  let s='',lastLab=-1e9;
+  [0,0.5,1].forEach(r=>{s+='<text class="tl-axis" text-anchor="end" x="'+(L-4)+'" y="'+(Y(r)+3).toFixed(1)+'">'+r.toFixed(1)+'</text>';});
+  TL.segs.forEach((g,k)=>{
+    if(g.d1<v0||g.d0>v1)return;
+    const xa=Math.max(L,X(g.d0)),xb=Math.min(W-R,X(g.d1));
+    s+='<rect class="tl-seg" x="'+xa.toFixed(1)+'" y="'+T+'" width="'+Math.max(0,xb-xa).toFixed(1)+'" height="'+(yb-T).toFixed(1)+'"/>';
+    /* warning window for the selected horizon: windows ending in (onset-h-0.25, onset-h+0.25] */
+    TL.onsets.filter(o=>o.seg===k).forEach(o=>{
+      const a=Math.max(g.r0,o.t-TL.h-0.25),b=Math.min(g.r1,o.t-TL.h+0.25);
+      if(b>a){const wa=X(dispOf(g,a)),wb=X(dispOf(g,b));
+        s+='<rect class="tl-warn" x="'+wa.toFixed(1)+'" y="'+T+'" width="'+Math.max(2,wb-wa).toFixed(1)+'" height="'+(yb-T).toFixed(1)+'"><title>'+num(TL.h,1)+' s warning window (windows ending '+num(TL.h,1)+' s before this onset)</title></rect>';
+        s+='<text class="tl-warn-label" x="'+(wa+2).toFixed(1)+'" y="'+(yb-4).toFixed(1)+'">'+num(TL.h,1)+' s</text>';}
+    });
+    /* stored risk as steps: window i holds from its end time until the next window */
+    let d='';
+    for(let i=g.i0;i<=g.i1;i++){
+      const xa2=X(dispOf(g,tr.t[i])),xb2=X(dispOf(g,Math.min(tr.t[i]+STRIDE,i<g.i1?tr.t[i+1]:tr.t[i]+STRIDE)));
+      if(xb2<L||xa2>W-R)continue;
+      const y=Y(tr.risk[i]).toFixed(1);
+      d+=(d?'L':'M')+Math.max(L,xa2).toFixed(1)+','+y+'L'+Math.min(W-R,xb2).toFixed(1)+','+y;
+      if(tr.risk[i]>=TL.thr)s+='<rect class="tl-alarm" x="'+Math.max(L,xa2).toFixed(1)+'" y="'+(yb+4)+'" width="'+Math.max(1,Math.min(W-R,xb2)-Math.max(L,xa2)).toFixed(1)+'" height="7"/>';
+      if(withTitles)s+='<rect class="tl-hit" x="'+Math.max(L,xa2).toFixed(1)+'" y="'+T+'" width="'+Math.max(1,Math.min(W-R,xb2)-Math.max(L,xa2)).toFixed(1)+'" height="'+(yb-T).toFixed(1)+'"><title>window ending t = '+tr.t[i].toFixed(2)+' s — stored risk '+tr.risk[i]+'</title></rect>';
+    }
+    if(d)s+='<path class="tl-risk" d="'+d+'"/>';
+    s+='<line class="tl-thr" x1="'+xa.toFixed(1)+'" x2="'+xb.toFixed(1)+'" y1="'+Y(TL.thr).toFixed(1)+'" y2="'+Y(TL.thr).toFixed(1)+'"/>';
+    TL.onsets.filter(o=>o.seg===k).forEach(o=>{const x=X(dispOf(g,o.t));if(x<L||x>W-R)return;
+      s+='<line class="tl-onset" x1="'+x.toFixed(1)+'" x2="'+x.toFixed(1)+'" y1="'+T+'" y2="'+(yb+12)+'"><title>labelled onset ≈ t = '+o.t.toFixed(2)+' s (±0.25 s)</title></line>';
+      if(x-lastLab>48){s+='<text class="tl-onset-label" text-anchor="end" x="'+(x-3).toFixed(1)+'" y="'+(T+11)+'">onset</text>';lastLab=x;}});
+    if(k<TL.segs.length-1){const n=TL.segs[k+1],ga=X(g.d1),gb=X(n.d0);
+      if(gb>L&&ga<W-R){s+='<rect class="tl-gap" x="'+Math.max(L,ga).toFixed(1)+'" y="'+T+'" width="'+Math.max(0,Math.min(W-R,gb)-Math.max(L,ga)).toFixed(1)+'" height="'+(yb-T).toFixed(1)+'"><title>'+(n.r0-g.r1).toFixed(1)+' s not sampled</title></rect>';}}
+  });
+  s+='<line class="sv-axis" x1="'+L+'" x2="'+(W-R)+'" y1="'+yb.toFixed(1)+'" y2="'+yb.toFixed(1)+'"/>';
+  s+='<text class="tl-axis" x="'+L+'" y="'+(yb+26)+'">alarm lane: windows with stored risk ≥ '+num(TL.thr)+'</text>';
+  const xp=X(TL.p);s+='<line class="tl-play" x1="'+xp.toFixed(1)+'" x2="'+xp.toFixed(1)+'" y1="4" y2="'+(yb+12)+'"/>';
+  svg.innerHTML=s;
+}
+function drawOverview(){
+  const svg=$('#tl-overview');if(!TL.D){svg.innerHTML='';return;}
+  const W=1000,X=d=>4+d/TL.D*(W-8);let s='';
+  TL.segs.forEach(g=>{s+='<rect class="ov-seg" x="'+X(g.d0).toFixed(1)+'" y="12" width="'+Math.max(1,X(g.d1)-X(g.d0)).toFixed(1)+'" height="10"/>';});
+  TL.onsets.forEach(o=>{const x=X(dispOf(TL.segs[o.seg],o.t)).toFixed(1);s+='<line class="ov-onset" x1="'+x+'" x2="'+x+'" y1="6" y2="28"/>';});
+  s+='<rect class="ov-view" id="ov-view" y="2" height="30"/><line class="tl-play" id="ov-play" y1="2" y2="32"/>';
+  svg.innerHTML=s;moveOverviewPlayhead();
+}
+function moveOverviewPlayhead(){
+  const pl=$('#ov-play'),vw=$('#ov-view');if(!pl||!TL.D)return;
+  const X=d=>4+d/TL.D*(1000-8),S=viewSpan(),v0=viewStart(S);
+  pl.setAttribute('x1',X(TL.p).toFixed(1));pl.setAttribute('x2',X(TL.p).toFixed(1));
+  vw.setAttribute('x',X(v0).toFixed(1));vw.setAttribute('width',Math.max(1,X(Math.min(TL.D,v0+S))-X(v0)).toFixed(1));
+}
+/* transport: requestAnimationFrame; with reduced motion, discrete one-window steps */
+function tick(ts){
+  if(!TL.playing)return;
+  const dt=TL.last?Math.min(0.1,(ts-TL.last)/1000):0;TL.last=ts;
+  TL.p=Math.min(TL.D,TL.p+dt*passRate()*TL.speed);
+  frame(false);
+  if(TL.p>=TL.D){pause();return;}
+  TL.raf=requestAnimationFrame(tick);
+}
+function play(){
+  if(!TL.D||TL.playing)return;
+  if(TL.p>=TL.D)TL.p=0;
+  TL.playing=true;TL.last=0;
+  if(isReduced())TL.step=setInterval(()=>{if(!stepWindow(1))pause();},Math.round(600/TL.speed));
+  else TL.raf=requestAnimationFrame(tick);
+  frame(true);
+}
+function pause(){
+  if(!TL.playing){return;}
+  TL.playing=false;cancelAnimationFrame(TL.raf);clearInterval(TL.step);TL.step=0;frame(true);
+}
+function windowStarts(){const out=[];TL.segs.forEach(g=>{for(let i=g.i0;i<=g.i1;i++)out.push(dispOf(g,TL.tr.t[i]));});return out;}
+function stepWindow(dir){
+  if(!TL.D)return false;
+  const w=windowStarts();
+  const target=dir>0?w.find(d=>d>TL.p+1e-6):[...w].reverse().find(d=>d<TL.p-1e-6);
+  if(target==null)return false;
+  TL.p=target;frame(true);return true;
+}
+function jumpOnset(dir){
+  if(!TL.onsets.length)return;
+  const loc=locate(TL.p),ref=loc.real!=null?loc.real:(()=>{const g=TL.segs.find(s=>s.d0>TL.p);return g?g.r0:Infinity;})();
+  /* land a few seconds before the onset, inside its segment, so the approach is visible */
+  const lead=TL.h+3,cands=TL.onsets.map(o=>({o,at:Math.max(TL.segs[o.seg].r0,o.t-lead)}));
+  const pick=dir>0?cands.find(c=>c.at>ref+0.05):[...cands].reverse().find(c=>c.at<ref-0.05);
+  if(!pick)return;
+  TL.p=dispOf(TL.segs[pick.o.seg],pick.at);frame(true);
+}
+function syncControls(){
+  const i=DATA.horizons.indexOf(TL.h),C=DATA.horizon_curve.C,prev=DATA.prevalence;
+  $('#horizon-input').value=i;
+  $('#horizon-label').textContent='Warning horizon h = '+num(TL.h,1)+' s (stored horizons only)';
+  $('#horizon-auprc').textContent='Measured AUPRC at '+num(TL.h,1)+' s: '+num(C[i],4)+' · prevalence floor '+num(prev[i],4)+' (submitted model C, cohort)';
+  const mx=Math.max(...C,...prev),bw=v=>(v/mx*480).toFixed(1);
+  $('#horizon-bars').innerHTML='<text class="tl-axis" x="0" y="11">AUPRC</text><rect class="hb-auprc" x="60" y="2" height="11" width="'+bw(C[i])+'"/>'+
+    '<text class="tl-axis" x="0" y="27">floor</text><rect class="hb-prev" x="60" y="17" height="11" width="'+bw(prev[i])+'"/>';
+  $('#horizon-note').textContent=TL.h===H?'The shaded window is the window the stored risk was trained to flag for this onset.':
+    'The risk line is the stored '+num(H,1)+' s model output; per-window risk for other horizons is not stored, so only the shaded window moves.';
+  $('#thr-input').value=TL.thr;
+  $('#thr-label').textContent='Alarm threshold = '+num(TL.thr);
+  $('#thr-reset').textContent='Reset to population threshold ('+num(DATA.meta.threshold_global)+')';
+  $('#replay-play').setAttribute('aria-pressed',String(TL.playing));
+  $$('[data-speed]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.speed)===TL.speed)));
+  $('#tl-legend').textContent='Black steps: stored risk per 4 s window (out-of-fold, submitted model, '+num(H,1)+' s horizon). Red dashed: alarm threshold. Red bars: windows in alarm. '+
+    'Red lines: labelled onsets, drawn '+num(H,1)+' s after the labelled window (±0.25 s). Amber: '+num(TL.h,1)+' s warning window, drawn only where a window was sampled that far before the onset. Tinted columns: gaps between sampled segments (not monitored). '+
+    'Speed 1× plays the whole recording in 30 s.';
+}
 /* ================= SCREEN 3 ================= */
 function evidence(){
   const b=DATA.burden,m=DATA.meta;
   $('#val-method').textContent='Subject-level GroupKFold, '+m.folds+' folds, seed-averaged over '+m.seeds.length+' seeds';
   $('#scope-note').innerHTML='Concurrent, out-of-fold estimation of current freezing burden on held-out patients. Not prospective forecasting. <span class="font-code-sm text-code-sm font-semibold text-on-surface">n = '+b.n_patients+'</span>, single cohort, correlational, no external validation. Spearman is the primary statistic; Pearson is leverage-sensitive and the association holds under every single-patient deletion. Episode forecasting is a secondary, weak result.';
   $('#val-n').textContent='n = '+b.n_patients+' evaluable';
-  $('#leverage-note').textContent='Pearson is leverage-sensitive: dropping the highest-burden patient gives r = '+num(b.jackknife_r_min)+' (p = '+num(b.jackknife_p_max,3)+'). Jackknife range r = '+num(b.jackknife_r_min)+'\u2013'+num(b.jackknife_r_max)+'.';
   $('#stat-tiles').innerHTML=
     tile('Patients',m.n_patients,'held-out, subject-grouped')+
     tile('Windows',m.n_windows.toLocaleString(),num(m.window_s,1)+' s at '+m.fs+' Hz \u00b7 horizon '+num(m.horizon_s,1)+' s')+
     tile('Burden correlation',rho(b.spearman_r),'vs r = '+num(b.nfogq_alone_r)+' for the questionnaire','text-primary')+
     tile('Episode forecasting','secondary, weak','chance level '+num(Math.min(...DATA.prevalence),4)+'\u2013'+num(Math.max(...DATA.prevalence),4)+' across horizons');
-  $('#sc1-stats').textContent='r = +'+num(b.pearson_r)+' \u00b7 \u03c1 = +'+num(b.spearman_r)+' \u00b7 p = '+num(b.spearman_p,4);
   $('#sc2-stats').textContent='r = +'+num(b.nfogq_alone_r)+' \u00b7 p = '+num(b.nfogq_alone_p,3)+' (not significant)';
-  scatter('#sc1','#sc2');
+  renderBurdenScatter();
+  scatter('#sc2');
   horizon();
   hetero();
   $('#nulls-body').innerHTML=DATA.nulls.map(x=>'<tr class="hover:bg-surface-container-low/40 transition-colors">'+
@@ -1300,14 +1633,14 @@ function tile(label,value,sub,cls){
     '<div class="font-body-sm text-body-sm text-outline">'+sub+'</div></div>';
 }
 function axisbox(svg,w,h,pad,maxv,ticks){
-  svg+='<line stroke="#bcc9c6" x1="'+pad+'" x2="'+(w-pad)+'" y1="'+(h-pad)+'" y2="'+(h-pad)+'"/>'+
-        '<line stroke="#bcc9c6" x1="'+pad+'" x2="'+pad+'" y1="'+(h-pad)+'" y2="'+pad+'"/>';
+  svg+='<line style="stroke:var(--outline-variant)" x1="'+pad+'" x2="'+(w-pad)+'" y1="'+(h-pad)+'" y2="'+(h-pad)+'"/>'+
+        '<line style="stroke:var(--outline-variant)" x1="'+pad+'" x2="'+pad+'" y1="'+(h-pad)+'" y2="'+pad+'"/>';
   for(let t=0;t<=ticks;t++){const v=maxv*t/ticks,y=h-pad-v*(h-2*pad)/maxv;
-    svg+='<line stroke="#e9eef1" stroke-dasharray="2 2" x1="'+pad+'" x2="'+(w-pad)+'" y1="'+y.toFixed(1)+'" y2="'+y.toFixed(1)+'"/>'+
-         '<text fill="#6d7a77" font-size="9" text-anchor="end" x="'+(pad-3)+'" y="'+(y+3).toFixed(1)+'">'+num(v,2)+'</text>';}
+    svg+='<line style="stroke:var(--chart-grid)" stroke-dasharray="2 2" x1="'+pad+'" x2="'+(w-pad)+'" y1="'+y.toFixed(1)+'" y2="'+y.toFixed(1)+'"/>'+
+         '<text style="fill:var(--outline)" font-size="9" text-anchor="end" x="'+(pad-3)+'" y="'+(y+3).toFixed(1)+'">'+num(v,2)+'</text>';}
   return svg;
 }
-function scatter(s1,s2){
+function scatter(s2){
   const pts=DATA.burden.per_patient;
   const ymax=Math.max(...pts.map(p=>p.actual_rate))*1.1;
   const xmax=Math.max(...pts.map(p=>p.estimate))*1.05;
@@ -1315,14 +1648,16 @@ function scatter(s1,s2){
   const draw=(sel,xget,xmax,xlab)=>{
     const w=500,h=220,pad=40;let s=axisbox('',w,h,pad,ymax,4);
     const X=v=>pad+v*(w-pad-10-pad)/xmax, Y=v=>h-pad-v*(h-2*pad)/ymax;
-    pts.forEach(p=>{s+='<circle fill="#00685f" cx="'+X(xget(p)).toFixed(1)+'" cy="'+Y(p.actual_rate).toFixed(1)+'" r="4"/>';});
-    s+='<text fill="#6d7a77" font-size="9" x="'+pad+'" y="'+(h-6)+'">'+xlab+'</text>';
+    let hi='';
+    pts.forEach(p=>{const cx=X(xget(p)).toFixed(1),cy=Y(p.actual_rate).toFixed(1),tip='<title>'+burdenTip(p)+'</title>';
+      if(p.subject===selected)hi='<circle class="sv-ring" cx="'+cx+'" cy="'+cy+'" r="11"/><circle class="sv-pt-sel" cx="'+cx+'" cy="'+cy+'" r="6">'+tip+'</circle>';
+      else s+='<circle style="fill:var(--primary)" fill-opacity="'+(selected&&burdenOf(selected)?'0.55':'1')+'" cx="'+cx+'" cy="'+cy+'" r="4">'+tip+'</circle>';});
+    s+=hi;
+    s+='<text style="fill:var(--outline)" font-size="9" x="'+pad+'" y="'+(h-6)+'">'+xlab+'</text>';
     $(sel).innerHTML=s;
   };
-  draw(s1,p=>p.estimate,xmax,'x: twin estimate');
   draw(s2,p=>p.nfogq,xmax2,'x: NFOGQ score');
-  $('#sc1').innerHTML+='<text fill="#6d7a77" font-size="9" x="40" y="16">'+(DATA.burden.n_patients)+' held-out patients</text>';
-  $('#sc2').innerHTML+='<text fill="#6d7a77" font-size="9" x="40" y="16">'+(DATA.burden.n_patients)+' held-out patients</text>';
+  $('#sc2').innerHTML+='<text style="fill:var(--outline)" font-size="9" x="40" y="16">'+(DATA.burden.n_patients)+' held-out patients</text>';
 }
 function horizon(){
   const w=500,h=240,pad=45,hs=DATA.horizons;
@@ -1332,18 +1667,20 @@ function horizon(){
   const C=DATA.horizon_curve.C,sd=DATA.horizon_curve_sd.C;
   const upper=C.map((v,i)=>X(i).toFixed(1)+','+Y(Math.min(ymax,v+sd[i])).toFixed(1));
   const lower=C.map((v,i)=>X(i).toFixed(1)+','+Y(Math.max(0,v-sd[i])).toFixed(1)).reverse();
-  s+='<polygon points="'+upper.join(' ')+' '+lower.join(' ')+'" fill="#167b7d" fill-opacity="0.14"/>';
+  s+='<polygon style="fill:var(--chart-band)" points="'+upper.join(' ')+' '+lower.join(' ')+'" fill-opacity="0.14"/>';
   const line=v=>v.map((x,i)=>(i?'L':'M')+X(i).toFixed(1)+','+Y(x).toFixed(1)).join('');
-  s+='<path d="'+line(DATA.horizon_curve.A)+'" fill="none" stroke="#3174b5" stroke-width="1.6" stroke-dasharray="5 3"/>';
-  s+='<path d="'+line(DATA.horizon_curve.B)+'" fill="none" stroke="#b56e00" stroke-width="1.6" stroke-dasharray="3 3"/>';
-  s+='<path d="'+line(C)+'" fill="none" stroke="#6d7a77" stroke-width="1.6" stroke-dasharray="2 2"/>';
-  s+='<path d="'+line(C)+'" fill="none" stroke="#00685f" stroke-width="2.6"/>';
-  s+='<path d="'+line(DATA.prevalence)+'" fill="none" stroke="#3d4947" stroke-width="1.8" stroke-dasharray="6 4"/>';
+  s+='<path style="stroke:var(--chart-a)" d="'+line(DATA.horizon_curve.A)+'" fill="none" stroke-width="1.6" stroke-dasharray="5 3"/>';
+  s+='<path style="stroke:var(--chart-b)" d="'+line(DATA.horizon_curve.B)+'" fill="none" stroke-width="1.6" stroke-dasharray="3 3"/>';
+  s+='<path style="stroke:var(--outline)" d="'+line(C)+'" fill="none" stroke-width="1.6" stroke-dasharray="2 2"/>';
+  s+='<path style="stroke:var(--primary)" d="'+line(C)+'" fill="none" stroke-width="2.6"/>';
+  s+='<path style="stroke:var(--on-surface-variant)" d="'+line(DATA.prevalence)+'" fill="none" stroke-width="1.8" stroke-dasharray="6 4"/>';
   // error bars on C
-  C.forEach((v,i)=>{s+='<line stroke="#00685f" stroke-width="1.4" x1="'+X(i).toFixed(1)+'" x2="'+X(i).toFixed(1)+'" y1="'+Y(Math.max(0,v-sd[i])).toFixed(1)+'" y2="'+Y(Math.min(ymax,v+sd[i])).toFixed(1)+'"/>';});
-  hs.forEach((v,i)=>{s+='<text fill="#6d7a77" font-size="9" text-anchor="middle" x="'+X(i).toFixed(1)+'" y="'+(h-24)+'">'+v+'</text>';});
-  s+='<text fill="#3d4947" font-size="9" x="'+pad+'" y="'+(h-8)+'">warning horizon (s)</text>';
-  s+='<text fill="#6d7a77" font-size="9" x="'+(w-190)+'" y="'+(h-24)+'">prevalence (chance level)</text>';
+  C.forEach((v,i)=>{s+='<line style="stroke:var(--primary)" stroke-width="1.4" x1="'+X(i).toFixed(1)+'" x2="'+X(i).toFixed(1)+'" y1="'+Y(Math.max(0,v-sd[i])).toFixed(1)+'" y2="'+Y(Math.min(ymax,v+sd[i])).toFixed(1)+'"/>';});
+  [['A','var(--chart-a)',2.5],['B','var(--chart-b)',2.5],['C','var(--primary)',3.5]].forEach(([m,c,r])=>DATA.horizon_curve[m].forEach((v,i)=>{
+    s+='<circle style="fill:'+c+'" cx="'+X(i).toFixed(1)+'" cy="'+Y(v).toFixed(1)+'" r="'+r+'"><title>Model '+m+' \u00b7 horizon '+hs[i]+' s \u2014 AUPRC '+num(v,4)+' (prevalence '+num(DATA.prevalence[i],4)+')</title></circle>';}));
+  hs.forEach((v,i)=>{s+='<text style="fill:var(--outline)" font-size="9" text-anchor="middle" x="'+X(i).toFixed(1)+'" y="'+(h-24)+'">'+v+'</text>';});
+  s+='<text style="fill:var(--on-surface-variant)" font-size="9" x="'+pad+'" y="'+(h-8)+'">warning horizon (s)</text>';
+  s+='<text style="fill:var(--outline)" font-size="9" x="'+(w-190)+'" y="'+(h-24)+'">prevalence (chance level)</text>';
   $('#horizon').innerHTML=s;
 }
 function hetero(){
@@ -1352,11 +1689,15 @@ function hetero(){
   $('#het-bars').innerHTML=ps.map((p,i)=>{
     const fail=p.auprc<p.event_rate*2;
     const h=Math.max(3,100*p.auprc/maxv),mh=100*(p.event_rate*2)/maxv;
-    return '<div class="flex-1 flex flex-col items-center h-full justify-end relative group" title="'+esc(p.subject)+'">'+
+    const on=p.subject===selected;
+    return '<div class="flex-1 flex flex-col items-center h-full justify-end relative group'+(on?' het-sel':'')+'" title="'+esc(p.subject)+' \u2014 AUPRC '+num(p.auprc)+' vs 2\u00d7 event rate '+num(p.event_rate*2)+'">'+
       '<div class="absolute w-3 h-0.5 bg-on-surface" style="bottom:'+mh.toFixed(1)+'%"></div>'+
       '<div class="w-full rounded-t '+(fail?'bg-error':'bg-primary')+'" style="height:'+h.toFixed(1)+'%"></div>'+
-      '<span class="font-code-sm text-[8px] text-outline mt-1">'+String(i+1)+'</span></div>';
+      '<span class="font-code-sm text-[8px] '+(on?'text-on-surface font-bold':'text-outline')+' mt-1">'+(on?'\u25b2':String(i+1))+'</span></div>';
   }).join('');
+  const sp=DATA.patients.find(q=>q.subject===selected),inB=!!burdenOf(selected),inH=ps.some(q=>q.subject===selected);
+  $('#sel-note').textContent=!sp?'':sp.synthetic?'Selected: '+selected+' (synthetic, not plotted)':
+    'Selected: '+selected+(inB&&inH?' \u2014 highlighted below':inB?' \u2014 no per-patient AUPRC, not in the heterogeneity chart':inH?' \u2014 no burden estimate, not in the scatters':' \u2014 in neither chart');
   $('#het-chip').textContent=H.below_2x+' of '+H.n_evaluated+' fail criterion';
   $('#het-note').textContent='Marker = 2\u00d7 that patient\u2019s own event rate. '+H.below_2x+' of '+H.n_evaluated+' evaluated patients fall below it. The model does not transfer uniformly across patients.';
   $('#het-range').textContent='per-patient optimal thresholds span '+num(H.threshold_min,3)+' to '+num(H.threshold_max,4);
@@ -1366,15 +1707,33 @@ function hetero(){
 $$('.tab').forEach(a=>a.onclick=e=>{e.preventDefault();showTab(a.dataset.tab);});
 document.addEventListener('click',e=>{const a=e.target.closest('a[data-tab]');if(a){e.preventDefault();showTab(a.dataset.tab);}});
 $$('.mode-btn').forEach(b=>b.onclick=()=>showMode(b.dataset.mode));
-$('#sort').onchange=e=>{sortBy=e.target.value;renderList();};
-$('#feature-toggle').onclick=()=>$('#feature-details').classList.toggle('hidden');
-$('#replay-play').onclick=startReplay;
-$('#replay-pause').onclick=stopReplay;
-$('#replay-reset').onclick=()=>{stopReplay();replayT=0;replay();};
-$$('[data-threshold]').forEach(b=>b.onclick=()=>{thresholdMode=b.dataset.threshold;$$('[data-threshold]').forEach(x=>{const on=x.dataset.threshold===thresholdMode;x.className='font-label-sm text-label-sm px-2.5 py-1 rounded transition-colors '+(on?'bg-surface-container-lowest text-on-surface font-semibold shadow-xs':'hover:text-on-surface');});replay();renderTwin();});
-$$('[data-speed]').forEach(b=>b.onclick=()=>{replaySpeed=Number(b.dataset.speed);$$('[data-speed]').forEach(x=>{const on=Number(x.dataset.speed)===replaySpeed;x.className='font-label-sm text-label-sm px-2 py-1 rounded transition-colors '+(on?'bg-surface-container-lowest text-on-surface font-semibold shadow-xs':'hover:text-on-surface');});if(replayTimer)startReplay();});
-selected=(sortedRows().find(r=>!r.p.synthetic)||{p:DATA.patients[0]}).p.subject;
-problem();renderList();renderTwin();showTab('problem');showMode('clinical');
+$$('#pp-head [data-sort]').forEach(b=>b.onclick=()=>{const k=b.dataset.sort;
+  if(ppSort.key===k)ppSort.dir=-ppSort.dir;else ppSort={key:k,dir:(k==='subject'||k==='med')?1:-1};renderPanel();});
+$('#back-panel').onclick=()=>{showTab('patients');const r=[...$$('#pp-body tr')].find(x=>x.dataset.sub===selected);if(r)r.focus();};
+const stepPatient=d=>{const o=panelRows().map(r=>r.p.subject),k=o.indexOf(selected)+d;if(k>=0&&k<o.length){selected=o[k];renderTwin();}};
+$('#prev-pt').onclick=()=>stepPatient(-1);
+$('#next-pt').onclick=()=>stepPatient(1);
+$('#lev-toggle').onchange=e=>{excludeTop=e.target.checked;renderBurdenScatter();};
+$('#replay-play').onclick=play;
+$('#replay-pause').onclick=pause;
+$('#replay-reset').onclick=()=>{pause();TL.p=0;frame(true);};
+$('#step-back').onclick=()=>{pause();stepWindow(-1);};
+$('#step-fwd').onclick=()=>{pause();stepWindow(1);};
+$('#onset-prev').onclick=()=>jumpOnset(-1);
+$('#onset-next').onclick=()=>jumpOnset(1);
+$$('[data-speed]').forEach(b=>b.onclick=()=>{TL.speed=Number(b.dataset.speed);if(TL.playing){pause();play();}else frame(true);});
+$('#scrub').addEventListener('input',e=>{TL.p=TL.D*Number(e.target.value)/1000;frame(false);});
+$('#tl-overview').addEventListener('click',e=>{if(!TL.D)return;const r=e.currentTarget.getBoundingClientRect();
+  TL.p=Math.max(0,Math.min(TL.D,((e.clientX-r.left)/r.width*1000-4)/(1000-8)*TL.D));frame(true);});
+$('#horizon-input').addEventListener('input',e=>{TL.h=DATA.horizons[Number(e.target.value)];frame(true);});
+$('#horizon-ticks').innerHTML=DATA.horizons.map((h,i)=>'<option value="'+i+'" label="'+h+' s"></option>').join('');
+$('#thr-input').addEventListener('input',e=>{TL.thr=Number(e.target.value);frame(true);});
+$('#thr-reset').onclick=()=>{TL.thr=DATA.meta.threshold_global;frame(true);};
+/* Space anywhere in the transport toggles play/pause; cancelled on keydown and keyup so
+   the focused button's own Space activation does not also fire. */
+$('#replay-transport').addEventListener('keydown',e=>{if(e.key===' '){e.preventDefault();if(!e.repeat){if(TL.playing)pause();else play();}}});
+$('#replay-transport').addEventListener('keyup',e=>{if(e.key===' ')e.preventDefault();});
+problem();renderPanel();showTab('patients');showMode('clinical');
 window.addEventListener('resize',()=>{if(!$('#panel-evidence').classList.contains('hidden'))evidence();});
 </script>
 </body></html>

@@ -30,10 +30,10 @@
 | Architecture diagram (PDF) | **NOT STARTED** |
 | Presentation (PDF/PPT) | **NOT STARTED** |
 | 20-minute video | **NOT STARTED** ← critical path |
-| Public repo assembled | **NOT STARTED** |
+| Public repo assembled | **COMPLETE** — folder `Team Asha_Sir MVIT`, pushed to a public GitHub repository. |
 
-The dashboard and synthetic demonstration are complete. Remaining work is the
-architecture diagram, presentation, video, and publication checks.
+The dashboard, synthetic demonstration and public repository are complete.
+Remaining work is the architecture diagram, presentation and video.
 
 ---
 
@@ -267,23 +267,37 @@ threshold does not fit everyone. The results are not deployable.
 - [ ] Problem statement and healthcare use case
 - [ ] Technical stack, AI/ML model details
 - [ ] **Minimum 20-minute video** explaining and demonstrating the prototype
-- [ ] Open-source licence details
+- [x] Open-source licence details
 - [ ] **Architecture diagram** in PDF/PPT *(separate file from the deck)*
 - [ ] **Presentation** in PDF/PPT
-- [ ] **Conceptual UI dashboard**
-- [ ] Folder named `Team Asha_Sir MVIT`
-- [ ] Repository public, all links accessible
+- [x] **Conceptual UI dashboard**
+- [x] Folder named `Team Asha_Sir MVIT`
+- [ ] Repository public, all links accessible *(public and pushed; video link still to add)*
 - [ ] Submit team leader's name, phone, email and the repo link
 
 ---
 
 ## 8. Narrative — how the result is presented
 
-The primary result is burden estimation. The movement-only twin estimates a
-patient's current FoG burden on held-out patients, while the standard NFOGQ
-questionnaire does not reach significance in the same cohort. The twin retains
-independent signal after adjustment for NFOGQ and activity level. The exact
-statistics are in `RESULTS.md`.
+The twin maintains one patient state from the two required streams and is
+read out in two ways (`docs/02_twin_spec.md`, §4). Present them in this order.
+
+**Readout 1 — adverse-event prediction, the output the challenge asks for.**
+FoG onset within a short horizon, reported at 2.0 s for the submitted model C:
+roughly 2.5× the prevalence floor, degrading with lead time, with no
+clinically usable operating point and four null personalisation mechanisms.
+State it as measured; the exact values are in `RESULTS.md`.
+
+**Readout 2 — concurrent burden estimation, the better-validated output.** The
+movement-only estimator tracks a patient's current FoG burden on held-out
+patients, while the standard NFOGQ questionnaire does not reach significance in
+the same cohort. It retains independent signal after adjustment for NFOGQ and
+activity level. The exact statistics are in `RESULTS.md`.
+
+These are two readouts of the twin's state design, not competing results. Say
+so, and also say what cannot be shown: the arm that produced the burden
+estimate is not recorded (the producing notebook was lost), so it is not
+demonstrated that both readouts come from the same trained model.
 
 This is **concurrent estimation, not prospective forecasting**: the twin
 estimates how much a patient is freezing now from movement it has not seen from
@@ -293,9 +307,9 @@ from one held-out cohort, with no external validation; the cohort size is in
 Spearman and the leave-one-patient-out analysis are stable and significant for
 every single-patient deletion. The exact robustness range is in `RESULTS.md`.
 
-Acute episode forecasting remains a weak secondary result. The horizon curve
-degrades with increasing lead time, and all four personalisation mechanisms are
-null. Those results are reported honestly in `RESULTS.md`.
+Episode forecasting remains weak. The horizon curve degrades with increasing
+lead time, and all four personalisation mechanisms are null. Those results are
+reported honestly in `RESULTS.md`; they are not hidden behind the burden result.
 
 The submission still demonstrates the required two-stream twin: continuous
 accelerometry is fused with clinical state and each patient's movement history.

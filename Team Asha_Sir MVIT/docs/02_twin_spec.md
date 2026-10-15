@@ -142,6 +142,41 @@ Z_i(t+1) = g( Z_i(t), X_i(t+1), C_i(t+1), M_i(t+1) )
 Previous state + new observations → updated state. The twin therefore develops
 a patient-specific trajectory rather than holding a static profile.
 
+### What changes when a new 4 s window arrives — as implemented
+
+The equation above is the design. The submitted implementation
+(`notebooks/02_preprocessing.ipynb`) is simpler, and this is exactly what it
+does:
+
+- **Personal baseline — computed once, then fixed.** For each subject, every
+  4 s window of the unlabelled daily (home) recording is summarised by ten
+  movement features. The baseline is the per-feature mean and standard
+  deviation over that subject's active windows (movement intensity above
+  0.02 g; all windows if 100 or fewer are active), plus the activity fraction.
+  It is computed offline and never re-estimated as new data arrive.
+- **Recomputed for every new window** (4 s long, one every 0.5 s of stride):
+  the convolutional encoder's embedding of the raw window, and the deviation
+  vector, which is the same ten features z-scored against the subject's
+  baseline mean and standard deviation.
+- **Clinical state — per visit.** Age, sex, years since diagnosis, UPDRS-III on
+  and off, and NFOGQ are taken from the subject's clinical record for that
+  visit and do not change within it. Medication state is taken per recording,
+  so it can differ between recordings made at the same visit.
+- **The baseline also enters directly.** Models B and C receive the subject's
+  baseline means and activity fraction as a static input, as well as using
+  them as the reference for the deviation vector.
+- **No state is carried between windows.** The network is feed-forward: each
+  prediction uses only the current window, its deviation vector, and the
+  static baseline and clinical inputs. The recurrence `Z_i(t) → Z_i(t+1)` above
+  is not implemented.
+
+The implication, stated plainly: the twin's state updates at window cadence
+through the encoder embedding and the deviation stream, conditioned on a
+precomputed baseline and a per-visit clinical record. It is not online
+re-estimation of the baseline, and it is not a recursive state update. In
+evaluation, predictions are made on sampled windows (those before labelled
+onsets and clean negatives), not on every 0.5 s position.
+
 ## 6. Patient-specificity — the design principle
 
 This is the heart of the system.
