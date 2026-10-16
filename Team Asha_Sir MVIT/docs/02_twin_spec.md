@@ -76,6 +76,10 @@ Relatively stable characteristics defining underlying susceptibility.
 "Baseline" means *slowly changing or reference-state*, not immutable. Age
 advances; years-since-diagnosis increases; UPDRS changes between visits.
 
+`PersonalBaseline_i` is 11-dimensional: the mean of each of the ten movement
+features over the subject's unlabelled week, plus `activity_fraction`. See
+`BCOLS` in `notebooks/04_model_seeds.ipynb`.
+
 ### Layer 2 — Clinical state `C_i(t)`
 
 Where the twin becomes longitudinal. The twin holds a trajectory, not a score:

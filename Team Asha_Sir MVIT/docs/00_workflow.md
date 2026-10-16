@@ -62,7 +62,7 @@ These are settled. Reopening any of them costs days we do not have.
 
 | Cohort | Files | Subjects | Rate | Units | Role in the twin |
 |---|---|---|---|---|---|
-| `tdcsfog` | 833 | 62 | 128 Hz | m/s² | Encoder pretraining source. No overlap with daily cohort. |
+| `tdcsfog` | 833 | 62 | 128 Hz | m/s² | Not used in the reported models. No tdcsfog subject has a personal baseline, so none is in the modelling cohort. |
 | `defog` | 91 | 45 | 100 Hz | g | Evaluation arm (with `Valid`/`Task`) |
 | `notype` | 46 | — | 100 Hz | g | Evaluation arm, generic `Event` label only |
 | `daily` | 65 | 65 | 100 Hz | g | **Unlabelled** personal baseline |

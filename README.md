@@ -1,5 +1,7 @@
 # Parkinson's Freezing-of-Gait Digital Twin
 
+The submission package is in [`Team Asha_Sir MVIT/`](Team%20Asha_Sir%20MVIT/). File paths named below are relative to that folder.
+
 **Digital Twin Challenge 2026 — Happiest Health**
 
 | | |
@@ -67,7 +69,7 @@ The burden estimate is a mean predicted risk and the observed rate is a
 positive-window fraction: different quantities on different scales, so the
 reported association is rank-based.
 
-![Held-out burden estimation](figures/fig5_burden_estimation.png)
+![Held-out burden estimation](Team%20Asha_Sir%20MVIT/figures/fig5_burden_estimation.png)
 
 ### Burden-estimation caveats
 
@@ -87,8 +89,8 @@ reported association is rank-based.
 
 ## Presentation and architecture
 
-- [Submission deck (PDF)](docs/deck.pdf) — 10 slides.
-- [Twin architecture (PDF)](docs/architecture.pdf) — four state layers, the
+- [Submission deck (PDF)](Team%20Asha_Sir%20MVIT/docs/deck.pdf) — 10 slides.
+- [Twin architecture (PDF)](Team%20Asha_Sir%20MVIT/docs/architecture.pdf) — four state layers, the
   latent state, and the two readouts.
 
 ## Why this is a twin and not a classifier
