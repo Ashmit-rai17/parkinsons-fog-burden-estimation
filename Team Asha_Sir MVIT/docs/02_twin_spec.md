@@ -261,8 +261,13 @@ That set of answers is what distinguishes this from "AI predicts freezing."
 The twin spans all four layers. For this prototype:
 
 - **Primary, validated:** concurrent FoG-burden estimation from held-out
-  patients' movement, using the twin state representation. This estimates
-  current burden; it is not prospective forecasting of future burden.
+  patients' movement. The estimate comes from arm A, accelerometry only. The
+  twin's state representation is what makes the comparison possible: arms A,
+  B and C share one cohort and one set of folds, so each branch's contribution
+  is measured rather than assumed. The ablations at n = 36 show the
+  personalisation branches did not improve short-horizon forecasting. This
+  estimates current burden; it is not prospective forecasting of future
+  burden.
 - **Secondary, exploratory:** acute layer (`F_i(t)`), conditioned on `B_i`,
   `C_i(t)`, `M_i(t)` and `PersonalBaseline_i`; and the longitudinal trajectory,
   presented with its unknown time interval stated.

@@ -85,6 +85,12 @@ reported association is rank-based.
   Across all single-patient deletions r spans 0.387–0.712 and remains
   significant.
 
+## Presentation and architecture
+
+- [Submission deck (PDF)](docs/deck.pdf) — 10 slides.
+- [Twin architecture (PDF)](docs/architecture.pdf) — four state layers, the
+  latent state, and the two readouts.
+
 ## Why this is a twin and not a classifier
 
 This is the question the design is built to answer, so we answer it first.
@@ -180,7 +186,9 @@ Team Asha_Sir MVIT/
 │   ├── 02_twin_spec.md
 │   ├── 03_data_and_target.md
 │   ├── 04_evidence_matrix.md
-│   └── 06_provenance.md      what is reproduced from the notebooks, what is open
+│   ├── 06_provenance.md      what is reproduced from the notebooks, what is open
+│   ├── architecture.pdf      twin architecture diagram
+│   └── deck.pdf              submission deck
 ├── dashboard/
 │   ├── README.md
 │   ├── index.html            self-contained dashboard (built)
