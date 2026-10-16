@@ -9,8 +9,9 @@
 ## Conclusion
 
 Three cohorts within the TLVMC Parkinson's FoG dataset play three distinct
-roles: `tdcsfog` pretrains the encoder, `defog` is the evaluation arm, and
-`daily` supplies the unlabelled personal baseline. **31 Subject × Visit
+roles: `tdcsfog` is not used in the reported models (no tdcsfog subject has a
+personal baseline, so none is in the modelling cohort), `defog` is the
+evaluation arm, and `daily` supplies the unlabelled personal baseline. **31 Subject × Visit
 combinations carry clinical state, controlled FoG recording, and a full week of
 home recording simultaneously** — that triple overlap is the twin cohort.
 
@@ -41,7 +42,7 @@ events, 2,817 task windows.
 
 | Cohort | Role | Why |
 |---|---|---|
-| `tdcsfog` | Encoder pretraining | Largest labelled volume (~2.19M labelled samples). No overlap with the daily cohort, so it cannot serve as the twin arm. |
+| `tdcsfog` | Not used in the reported models | No tdcsfog subject has a personal baseline, so none is in the modelling cohort. |
 | `defog` | Evaluation arm | Carries `Task` and `Valid` annotations, and 36 of its subjects also have daily recordings. |
 | `daily` | Personal baseline | ~1 week continuous per subject. **Unlabelled — cannot leak the target.** |
 | `notype` | Optional augmentation | Event-level labels only; usable for pretraining, not for type-level analysis. |
@@ -59,7 +60,8 @@ events, 2,817 task windows.
 | Subjects in all three cohorts incl. tdcsfog | **0** |
 
 The last row matters: `tdcsfog` subjects do not appear in the paired clinical
-cohort. This is why tdcsfog is a pretraining source and not the twin arm.
+cohort. This is why tdcsfog is not used in the reported models: no tdcsfog
+subject has a personal baseline, so none is in the modelling cohort.
 
 ## 4. Static clinical variables
 

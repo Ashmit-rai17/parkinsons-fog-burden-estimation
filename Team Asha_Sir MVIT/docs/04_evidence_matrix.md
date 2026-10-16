@@ -87,7 +87,6 @@
 |---|---|---|
 | A patient's personal motor baseline can be estimated from ~1 week of unlabelled home accelerometry | **ASSUMED** | Reasonable, not established. The ablation tests it empirically. |
 | Deviation from personal baseline carries information about impending FoG beyond the raw signal | **ASSUMED** | This is the project's central hypothesis. The ablation is what decides it — and a null result is reported as a null result. |
-| Representations learned from lab recordings (tdcsfog) transfer to home recordings (defog) after harmonisation | **ASSUMED** | Different device, rate and environment. Pretraining is tested against a no-pretraining control. |
 | `Task == True` regions with no nearby onset are genuinely FoG-free | **ASSUMED** | Follows the annotation protocol; the safest available assumption |
 | 4 s windows capture the relevant pre-FoG dynamics | **ASSUMED** | Starting choice informed by the documented pre-FoG timescale |
 | Excluding `Valid == False` events improves label quality | **INFERRED** | Dataset documents these as annotator-ambiguous |
