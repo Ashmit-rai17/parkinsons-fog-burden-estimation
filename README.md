@@ -14,13 +14,13 @@ and read out as a clinical-decision-support dashboard.
 |---|---|
 | **Team name** | Team Asha |
 | **Team leader** | Ashmit Rai |
-| **Team member** | Ayush Raj |
-| **Contact** | [EMAIL — team leader] |
+| **Team member** | Krishnaditya Prakash|
+| **Contact** | ashmitrai1706@gmail.com |
 
 ## College / Incubator information
 
 **Sir M. Visvesvaraya Institute of Technology (Sir MVIT), Bengaluru, Karnataka, India**
-Department of Computer Science and Engineering.
+Department of Data Science.
 No incubator affiliation.
 
 ## Project title
