@@ -45,7 +45,7 @@ events, 2,817 task windows.
 | `tdcsfog` | Not used in the reported models | No tdcsfog subject has a personal baseline, so none is in the modelling cohort. |
 | `defog` | Evaluation arm | Carries `Task` and `Valid` annotations, and 36 of its subjects also have daily recordings. |
 | `daily` | Personal baseline | ~1 week continuous per subject. **Unlabelled — cannot leak the target.** |
-| `notype` | Optional augmentation | Event-level labels only; usable for pretraining, not for type-level analysis. |
+| `notype` | Evaluation arm, with `defog` | Generic `Event` labels only, so not usable for type-level analysis. No pretraining is done on any cohort. |
 
 ## 3. Verified linkage
 

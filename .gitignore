@@ -1,6 +1,7 @@
 # large intermediates — regenerate from the Kaggle notebooks
 *.npy
 *.parquet
+*.zip
 __pycache__/
 .ipynb_checkpoints/
 .DS_Store

@@ -49,6 +49,8 @@ against the payload from the notebook outputs (`windows_meta.parquet`,
 `oof_A_mean.npy`). It prints a per-patient table, exits non-zero on any
 difference over 0.001, and never writes to the payload.
 
+The `windows_meta.parquet` from the run behind the reported results carries an unused `fold` column from the 5-fold block since removed from `notebooks/02_preprocessing.ipynb` cell 11; a fresh run omits it, and no script or notebook reads it.
+
 ---
 
 ## 2. Not reproduced — open
