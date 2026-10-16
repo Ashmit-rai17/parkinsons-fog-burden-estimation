@@ -234,21 +234,21 @@ not transfer uniformly across patients.
 
 ## Open-source license details
 
-**MIT License** — see [`LICENSE`](LICENSE).
+**MIT License** — see [`LICENSE`](Team%20Asha_Sir%20MVIT/LICENSE).
 
 All source code, documentation, figures and the dashboard in this repository
 are released under the MIT License. The TLVMC Parkinson's Freezing of Gait
 dataset is **not** redistributed here; it is used under its own published terms
-and linked from [`notebooks/README.md`](notebooks/README.md).
+and linked from [`notebooks/README.md`](Team%20Asha_Sir%20MVIT/notebooks/README.md).
 
 ## Architecture diagram
 
-**[`docs/Twin_architecture.pdf`](docs/Twin_architecture.pdf)** — four state
+**[`docs/architecture.pdf`](Team%20Asha_Sir%20MVIT/docs/architecture.pdf)** — four state
 layers feeding one latent patient state, with both readouts drawn from it.
 
 ## Presentation
 
-**[`docs/Team_Asha_Deck.pdf`](docs/Team_Asha_Deck.pdf)** — project details and
+**[`docs/deck.pdf`](Team%20Asha_Sir%20MVIT/docs/deck.pdf)** — project details and
 outcomes.
 
 ## Accessibility
@@ -329,13 +329,13 @@ this project.
 
 | Document | Contents |
 |---|---|
-| [`docs/00_workflow.md`](docs/00_workflow.md) | **Start here** — frozen decisions, pipeline, results, remaining work |
-| [`docs/01_problem.md`](docs/01_problem.md) | Clinical problem, why FoG, relevance to India |
-| [`docs/02_twin_spec.md`](docs/02_twin_spec.md) | Patient-state model, state layers, boundaries |
-| [`docs/03_data_and_target.md`](docs/03_data_and_target.md) | Dataset roles, linkage, target definition, leakage rules |
-| [`docs/04_evidence_matrix.md`](docs/04_evidence_matrix.md) | Every claim with its evidence class and source |
-| [`docs/06_provenance.md`](docs/06_provenance.md) | What regenerates from committed code, and what does not |
-| [`RESULTS.md`](RESULTS.md) | Generated from `dashboard/twin_data.json` — do not edit by hand |
+| [`docs/00_workflow.md`](Team%20Asha_Sir%20MVIT/docs/00_workflow.md) | **Start here** — frozen decisions, pipeline, results, remaining work |
+| [`docs/01_problem.md`](Team%20Asha_Sir%20MVIT/docs/01_problem.md) | Clinical problem, why FoG, relevance to India |
+| [`docs/02_twin_spec.md`](Team%20Asha_Sir%20MVIT/docs/02_twin_spec.md) | Patient-state model, state layers, boundaries |
+| [`docs/03_data_and_target.md`](Team%20Asha_Sir%20MVIT/docs/03_data_and_target.md) | Dataset roles, linkage, target definition, leakage rules |
+| [`docs/04_evidence_matrix.md`](Team%20Asha_Sir%20MVIT/docs/04_evidence_matrix.md) | Every claim with its evidence class and source |
+| [`docs/06_provenance.md`](Team%20Asha_Sir%20MVIT/docs/06_provenance.md) | What regenerates from committed code, and what does not |
+| [`RESULTS.md`](Team%20Asha_Sir%20MVIT/RESULTS.md) | Generated from `dashboard/twin_data.json` — do not edit by hand |
 
 Every substantive claim in this repository is labelled with its evidence class
 in `docs/04_evidence_matrix.md`. Nothing is stated more strongly than its
@@ -362,5 +362,5 @@ python3 scripts/build_dashboard.py                      # rebuilds dashboard/ind
 
 `*.npy` and `*.parquet` intermediates are gitignored by design and must be
 regenerated from the notebooks. See
-[`docs/06_provenance.md`](docs/06_provenance.md) for exactly which reported
+[`docs/06_provenance.md`](Team%20Asha_Sir%20MVIT/docs/06_provenance.md) for exactly which reported
 values regenerate from committed code and which do not.
