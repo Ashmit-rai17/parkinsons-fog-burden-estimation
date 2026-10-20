@@ -230,7 +230,7 @@ not transfer uniformly across patients.
 
 ## Demo video
 
-**[LINK — unlisted YouTube, 15–20 minutes, to be added before submission]**
+**[https://youtu.be/B4q3eYMGLPI]**
 
 ## Open-source license details
 
